@@ -4,12 +4,16 @@ package com.mycompany.copabolao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-public class ConnectionFactory {    
-    private String usuario = "root";
-    private String senha = "vintage";
-    private String host = "localhost";
-    private String porta = "3306";
-    private String db = "usjt";    
+import io.github.cdimascio.dotenv.Dotenv;
+
+public class ConnectionFactory { 
+    Dotenv dotenv = Dotenv.configure().load();
+    
+    private String usuario = dotenv.get("db_user");
+    private String senha = dotenv.get("db_password");
+    private String host = dotenv.get("db_host");
+    private String porta = dotenv.get("db_port");
+    private String db = dotenv.get("db_name");
     
     public Connection obterConexao() {
         try{
