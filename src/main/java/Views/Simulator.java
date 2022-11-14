@@ -8,12 +8,12 @@ package Views;
  *
  * @author bruno
  */
-public class Dashboard extends javax.swing.JFrame {
+public class Simulator extends javax.swing.JFrame {
 
     /**
-     * Creates new form Dashboard
+     * Creates new form Simulator
      */
-    public Dashboard() {
+    public Simulator() {
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -37,24 +37,24 @@ public class Dashboard extends javax.swing.JFrame {
         btn_groups = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Dashboard");
         setBounds(new java.awt.Rectangle(0, 0, 1280, 720));
-        setLocationByPlatform(true);
+        setMaximumSize(new java.awt.Dimension(1280, 720));
+        setMinimumSize(new java.awt.Dimension(1280, 720));
+        setPreferredSize(new java.awt.Dimension(1280, 720));
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(245, 245, 245));
         jPanel1.setMaximumSize(new java.awt.Dimension(1280, 720));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setFocusable(false);
 
         lbl_logo.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
         lbl_logo.setText("Logo");
 
-        btn_dashboard.setBackground(new java.awt.Color(27, 164, 72));
         btn_dashboard.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        btn_dashboard.setForeground(new java.awt.Color(255, 255, 255));
         btn_dashboard.setText("Dashboard");
-        btn_dashboard.setBorderPainted(false);
+        btn_dashboard.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245)));
         btn_dashboard.setDefaultCapable(false);
         btn_dashboard.setFocusPainted(false);
         btn_dashboard.setFocusable(false);
@@ -76,7 +76,9 @@ public class Dashboard extends javax.swing.JFrame {
             }
         });
 
+        btn_simulator.setBackground(new java.awt.Color(27, 164, 72));
         btn_simulator.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        btn_simulator.setForeground(new java.awt.Color(255, 255, 255));
         btn_simulator.setText("Simulador");
         btn_simulator.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245)));
         btn_simulator.setFocusable(false);
@@ -143,7 +145,7 @@ public class Dashboard extends javax.swing.JFrame {
                 .addComponent(btn_times, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btn_groups, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(339, Short.MAX_VALUE))
+                .addContainerGap(329, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -152,7 +154,7 @@ public class Dashboard extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 974, Short.MAX_VALUE))
+                .addGap(0, 968, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -178,7 +180,8 @@ public class Dashboard extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_dashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_dashboardActionPerformed
-        // TODO add your handling code here:
+        (new Dashboard()).setVisible(true);
+        dispose();
     }//GEN-LAST:event_btn_dashboardActionPerformed
 
     private void btn_usersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_usersActionPerformed
@@ -187,8 +190,7 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_usersActionPerformed
 
     private void btn_simulatorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_simulatorActionPerformed
-        (new Simulator()).setVisible(true);
-        dispose();
+        // TODO add your handling code here:
     }//GEN-LAST:event_btn_simulatorActionPerformed
 
     private void btn_timesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_timesActionPerformed
@@ -218,20 +220,20 @@ public class Dashboard extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Simulator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Simulator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Simulator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Simulator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Dashboard().setVisible(true);
+                new Simulator().setVisible(true);
             }
         });
     }
