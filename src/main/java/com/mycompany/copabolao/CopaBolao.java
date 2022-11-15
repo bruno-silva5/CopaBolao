@@ -20,29 +20,4 @@ public class CopaBolao {
         login.setVisible(true);
     }
     
-    void insertUserTest  () {
-        try {
-            //1. Especificar o comando SQL
-            String sql = "INSERT INTO tb_pessoa(nome, fone, email) VALUES (?, ?, ?)";
-
-            //2. Abrir uma conexão com o MySQL
-            ConnectionFactory conexaoFactory = new ConnectionFactory();
-            Connection conexao  = conexaoFactory.obterConexao();
-
-            //3. Pré compilar o comando
-            PreparedStatement ps = conexao.prepareStatement(sql);
-            ps.setString(1, "Usuario");
-            ps.setString(2, "12345");
-            ps.setString(3, "userr@live.com");
-
-            // 5 Executar o comando
-            ps.execute();
-
-            // 6 Fechar a conexao
-            ps.close();
-            conexao.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }

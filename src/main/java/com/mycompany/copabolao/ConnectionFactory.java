@@ -1,4 +1,3 @@
-
 package com.mycompany.copabolao;
 
 import java.sql.Connection;
@@ -6,24 +5,25 @@ import java.sql.DriverManager;
 
 import io.github.cdimascio.dotenv.Dotenv;
 
-public class ConnectionFactory { 
-    Dotenv dotenv = Dotenv.configure().load();
+public class ConnectionFactory {
 
-    private String usuario = dotenv.get("db_user");
-    private String senha = dotenv.get("db_password");
-    private String host = dotenv.get("db_host");
-    private String porta = dotenv.get("db_port");
-    private String db = dotenv.get("db_name");
+    public static final Connection obterConexao() {
+        try {
 
-    public final Connection obterConexao() {
-        try{
-            String stringConexao = String.format("jdbc:mysql://%s:%s/%s", host, porta, db );
+            Dotenv dotenv = Dotenv.configure().load();
+
+            String usuario = dotenv.get("db_user");
+            String senha = dotenv.get("db_password");
+            String host = dotenv.get("db_host");
+            String porta = dotenv.get("db_port");
+            String db = dotenv.get("db_name");
+
+            String stringConexao = String.format("jdbc:mysql://%s:%s/%s", host, porta, db);
             Connection conn = DriverManager.getConnection(stringConexao, usuario, senha);
             return conn;
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
-    }    
+    }
 }

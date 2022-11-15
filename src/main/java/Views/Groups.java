@@ -4,6 +4,8 @@
  */
 package Views;
 
+import Views.Teams.Teams;
+
 /**
  *
  * @author bruno
@@ -40,7 +42,6 @@ public class Groups extends javax.swing.JFrame {
         setBounds(new java.awt.Rectangle(0, 0, 1280, 720));
         setMaximumSize(new java.awt.Dimension(1280, 720));
         setMinimumSize(new java.awt.Dimension(1280, 720));
-        setPreferredSize(new java.awt.Dimension(1280, 720));
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(245, 245, 245));

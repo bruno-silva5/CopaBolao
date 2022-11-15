@@ -13,6 +13,18 @@ public class User {
     private double saldo;
     private int id_nivelAcesso;
 
+    public User(String nome, String senha, String email, int id_nivelAcesso) {
+        this.nome = nome;
+        this.senha = senha;
+        this.email = email;
+        this.id_nivelAcesso = id_nivelAcesso;
+    }
+
+    public User(String email, String senha) {
+        this.senha = senha;
+        this.email = email;
+    }
+
     public String getId() {
         return id;
     }

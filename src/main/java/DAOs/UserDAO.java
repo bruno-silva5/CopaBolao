@@ -20,7 +20,7 @@ public class UserDAO {
         try {
             String sql = "SELECT * FROM TB_USER where email like ? and senha like ?";
 
-            Connection conexao = (new ConnectionFactory()).obterConexao();
+            Connection conexao = ConnectionFactory.obterConexao();
 
             PreparedStatement ps = conexao.prepareStatement(sql);
             ps.setString(1, user.getEmail());

@@ -2,22 +2,43 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package Views;
+package Views.Teams;
+
+import DAOs.TimeDAO;
+import Models.Time;
+import Views.Dashboard;
+import Views.Groups;
+import Views.Simulator;
+import Views.Users;
+import java.util.ArrayList;
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
 
 /**
  *
  * @author bruno
  */
-public class Teams extends javax.swing.JFrame {
+public class ListTeams extends javax.swing.JFrame {
 
     /**
      * Creates new form Teams
      */
-    public Teams() {
+    public ListTeams() {
         initComponents();
         setLocationRelativeTo(null);
+        loadTeamsList();
     }
-
+    
+    private void loadTeamsList() {
+        ArrayList<Time> teams = TimeDAO.list();
+        DefaultListModel listModel = new DefaultListModel();
+        
+        for (int i = 0; i < teams.size(); i++) {
+            listModel.addElement(teams.get(i).getNome() + " " + teams.get(i).getId_grupo());
+        }
+        list_teams.setModel(listModel);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -35,17 +56,20 @@ public class Teams extends javax.swing.JFrame {
         btn_simulator = new javax.swing.JButton();
         btn_times = new javax.swing.JButton();
         btn_groups = new javax.swing.JButton();
+        jp_btns_times = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        list_teams = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBounds(new java.awt.Rectangle(0, 0, 1280, 720));
         setMaximizedBounds(new java.awt.Rectangle(0, 0, 1280, 720));
-        setMaximumSize(new java.awt.Dimension(1280, 720));
         setMinimumSize(new java.awt.Dimension(1280, 720));
-        setPreferredSize(new java.awt.Dimension(1280, 720));
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(245, 245, 245));
         jPanel1.setMaximumSize(new java.awt.Dimension(1280, 720));
+        jPanel1.setMinimumSize(new java.awt.Dimension(1280, 720));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setFocusable(false);
@@ -149,26 +173,61 @@ public class Teams extends javax.swing.JFrame {
                 .addContainerGap(329, Short.MAX_VALUE))
         );
 
+        jp_btns_times.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
+        jLabel1.setText("Lista de Times");
+
+        jScrollPane1.setViewportView(list_teams);
+
+        javax.swing.GroupLayout jp_btns_timesLayout = new javax.swing.GroupLayout(jp_btns_times);
+        jp_btns_times.setLayout(jp_btns_timesLayout);
+        jp_btns_timesLayout.setHorizontalGroup(
+            jp_btns_timesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jp_btns_timesLayout.createSequentialGroup()
+                .addGroup(jp_btns_timesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jp_btns_timesLayout.createSequentialGroup()
+                        .addGap(295, 295, 295)
+                        .addComponent(jLabel1))
+                    .addGroup(jp_btns_timesLayout.createSequentialGroup()
+                        .addGap(45, 45, 45)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 773, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(45, Short.MAX_VALUE))
+        );
+        jp_btns_timesLayout.setVerticalGroup(
+            jp_btns_timesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jp_btns_timesLayout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(jLabel1)
+                .addGap(43, 43, 43)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(77, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 968, Short.MAX_VALUE))
+                .addGap(58, 58, 58)
+                .addComponent(jp_btns_times, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 68, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addComponent(jp_btns_times, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -196,7 +255,8 @@ public class Teams extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_simulatorActionPerformed
 
     private void btn_timesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_timesActionPerformed
-        // TODO add your handling code here:
+        (new Teams()).setVisible(true);
+        dispose();
     }//GEN-LAST:event_btn_timesActionPerformed
 
     private void btn_groupsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_groupsActionPerformed
@@ -221,20 +281,21 @@ public class Teams extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Teams.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListTeams.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Teams.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListTeams.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Teams.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListTeams.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Teams.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListTeams.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Teams().setVisible(true);
+                new ListTeams().setVisible(true);
             }
         });
     }
@@ -245,8 +306,12 @@ public class Teams extends javax.swing.JFrame {
     private javax.swing.JButton btn_simulator;
     private javax.swing.JButton btn_times;
     private javax.swing.JButton btn_users;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel jp_btns_times;
     private javax.swing.JLabel lbl_logo;
+    private javax.swing.JList<String> list_teams;
     // End of variables declaration//GEN-END:variables
 }

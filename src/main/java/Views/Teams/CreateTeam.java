@@ -2,20 +2,26 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package Views;
+package Views.Teams;
 
-import Views.Teams.Teams;
+import DAOs.TimeDAO;
+import Models.Time;
+import Views.Dashboard;
+import Views.Groups;
+import Views.Simulator;
+import Views.Users;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author bruno
  */
-public class Users extends javax.swing.JFrame {
+public class CreateTeam extends javax.swing.JFrame {
 
     /**
-     * Creates new form Users
+     * Creates new form Teams
      */
-    public Users() {
+    public CreateTeam() {
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -37,14 +43,21 @@ public class Users extends javax.swing.JFrame {
         btn_simulator = new javax.swing.JButton();
         btn_times = new javax.swing.JButton();
         btn_groups = new javax.swing.JButton();
+        jp_btns_times = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        tf_teamName = new javax.swing.JTextField();
+        btn_storeTeam = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBounds(new java.awt.Rectangle(0, 0, 1280, 720));
-        setMaximumSize(new java.awt.Dimension(1280, 720));
+        setMaximizedBounds(new java.awt.Rectangle(0, 0, 1280, 720));
         setMinimumSize(new java.awt.Dimension(1280, 720));
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(245, 245, 245));
         jPanel1.setMaximumSize(new java.awt.Dimension(1280, 720));
+        jPanel1.setMinimumSize(new java.awt.Dimension(1280, 720));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setFocusable(false);
@@ -65,9 +78,7 @@ public class Users extends javax.swing.JFrame {
             }
         });
 
-        btn_users.setBackground(new java.awt.Color(27, 164, 72));
         btn_users.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        btn_users.setForeground(new java.awt.Color(255, 255, 255));
         btn_users.setText("Usuários");
         btn_users.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245)));
         btn_users.setFocusable(false);
@@ -89,7 +100,9 @@ public class Users extends javax.swing.JFrame {
             }
         });
 
+        btn_times.setBackground(new java.awt.Color(27, 164, 72));
         btn_times.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        btn_times.setForeground(new java.awt.Color(255, 255, 255));
         btn_times.setText("Times");
         btn_times.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245)));
         btn_times.setFocusable(false);
@@ -148,26 +161,95 @@ public class Users extends javax.swing.JFrame {
                 .addContainerGap(329, Short.MAX_VALUE))
         );
 
+        jp_btns_times.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
+        jLabel1.setText("Cadastrar Time");
+
+        btn_storeTeam.setBackground(new java.awt.Color(27, 164, 72));
+        btn_storeTeam.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        btn_storeTeam.setForeground(new java.awt.Color(255, 255, 255));
+        btn_storeTeam.setText("Cadastrar Time");
+        btn_storeTeam.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245)));
+        btn_storeTeam.setFocusable(false);
+        btn_storeTeam.setOpaque(true);
+        btn_storeTeam.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_storeTeamActionPerformed(evt);
+            }
+        });
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jp_btns_timesLayout = new javax.swing.GroupLayout(jp_btns_times);
+        jp_btns_times.setLayout(jp_btns_timesLayout);
+        jp_btns_timesLayout.setHorizontalGroup(
+            jp_btns_timesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jp_btns_timesLayout.createSequentialGroup()
+                .addGroup(jp_btns_timesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jp_btns_timesLayout.createSequentialGroup()
+                        .addGap(357, 357, 357)
+                        .addComponent(jLabel1))
+                    .addGroup(jp_btns_timesLayout.createSequentialGroup()
+                        .addGap(140, 140, 140)
+                        .addGroup(jp_btns_timesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btn_storeTeam, javax.swing.GroupLayout.PREFERRED_SIZE, 677, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 677, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(221, Short.MAX_VALUE))
+            .addGroup(jp_btns_timesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jp_btns_timesLayout.createSequentialGroup()
+                    .addGap(141, 141, 141)
+                    .addComponent(tf_teamName, javax.swing.GroupLayout.PREFERRED_SIZE, 673, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(224, Short.MAX_VALUE)))
+        );
+        jp_btns_timesLayout.setVerticalGroup(
+            jp_btns_timesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jp_btns_timesLayout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(jLabel1)
+                .addGap(213, 213, 213)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(102, 102, 102)
+                .addComponent(btn_storeTeam, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(126, Short.MAX_VALUE))
+            .addGroup(jp_btns_timesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jp_btns_timesLayout.createSequentialGroup()
+                    .addGap(167, 167, 167)
+                    .addComponent(tf_teamName, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(433, Short.MAX_VALUE)))
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 968, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                .addComponent(jp_btns_times, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(jp_btns_times, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -185,7 +267,8 @@ public class Users extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_dashboardActionPerformed
 
     private void btn_usersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_usersActionPerformed
-        // TODO add your handling code here:
+        (new Users()).setVisible(true);
+        dispose();
     }//GEN-LAST:event_btn_usersActionPerformed
 
     private void btn_simulatorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_simulatorActionPerformed
@@ -202,6 +285,23 @@ public class Users extends javax.swing.JFrame {
         (new Groups()).setVisible(true);
         dispose();
     }//GEN-LAST:event_btn_groupsActionPerformed
+
+    private void btn_storeTeamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_storeTeamActionPerformed
+        String teamName = tf_teamName.getText();
+        Time time = new Time(teamName);
+
+        if (TimeDAO.create(time) == 0) {
+            JOptionPane.showMessageDialog(null, "Erro ao cadastrar o time!");
+        } else {
+            JOptionPane.showMessageDialog(null, "Time cadastrado com sucesso!");
+            (new ListTeams()).setVisible(true);
+            dispose();
+        }
+    }//GEN-LAST:event_btn_storeTeamActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -220,20 +320,21 @@ public class Users extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Users.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateTeam.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Users.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateTeam.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Users.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateTeam.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Users.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateTeam.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Users().setVisible(true);
+                new CreateTeam().setVisible(true);
             }
         });
     }
@@ -242,10 +343,15 @@ public class Users extends javax.swing.JFrame {
     private javax.swing.JButton btn_dashboard;
     private javax.swing.JButton btn_groups;
     private javax.swing.JButton btn_simulator;
+    private javax.swing.JButton btn_storeTeam;
     private javax.swing.JButton btn_times;
     private javax.swing.JButton btn_users;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jp_btns_times;
     private javax.swing.JLabel lbl_logo;
+    private javax.swing.JTextField tf_teamName;
     // End of variables declaration//GEN-END:variables
 }

@@ -175,9 +175,7 @@ public class Login extends javax.swing.JFrame {
         String username = tf_email.getText();
         String password = new String(pf_password.getPassword());
 
-        User user = new User();
-        user.setEmail(username);
-        user.setSenha(password);
+        User user = new User(username, password);
 
         if (UserDAO.auth(user)) {
             (new Dashboard()).setVisible(true);
