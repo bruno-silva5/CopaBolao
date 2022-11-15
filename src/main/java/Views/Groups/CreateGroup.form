@@ -210,14 +210,8 @@
             </Component>
             <Component class="javax.swing.JButton" name="btn_times">
               <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="48" green="a4" red="1b" type="rgb"/>
-                </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Ubuntu" size="18" style="1"/>
-                </Property>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Times"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -236,8 +230,14 @@
             </Component>
             <Component class="javax.swing.JButton" name="btn_groups">
               <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="48" green="a4" red="1b" type="rgb"/>
+                </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Ubuntu" size="18" style="1"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Grupos"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -275,21 +275,13 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="140" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="btn_storeTeam" min="-2" pref="677" max="-2" attributes="0"/>
-                                  <Component id="jComboBox1" min="-2" pref="677" max="-2" attributes="0"/>
+                                  <Component id="tf_groupDescription" min="-2" pref="673" max="-2" attributes="0"/>
+                                  <Component id="btn_storeGroup" min="-2" pref="677" max="-2" attributes="0"/>
                                   <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
                       <EmptySpace pref="221" max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="141" max="-2" attributes="0"/>
-                          <Component id="tf_teamName" min="-2" pref="673" max="-2" attributes="0"/>
-                          <EmptySpace pref="224" max="32767" attributes="0"/>
-                      </Group>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -298,22 +290,13 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="121" max="-2" attributes="0"/>
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="105" max="-2" attributes="0"/>
-                      <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jComboBox1" min="-2" pref="61" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="102" max="-2" attributes="0"/>
-                      <Component id="btn_storeTeam" min="-2" pref="76" max="-2" attributes="0"/>
-                      <EmptySpace pref="126" max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="167" max="-2" attributes="0"/>
-                          <Component id="tf_teamName" min="-2" pref="60" max="-2" attributes="0"/>
-                          <EmptySpace pref="433" max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="tf_groupDescription" min="-2" pref="60" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="78" max="-2" attributes="0"/>
+                      <Component id="btn_storeGroup" min="-2" pref="76" max="-2" attributes="0"/>
+                      <EmptySpace pref="209" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -324,12 +307,12 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Ubuntu" size="36" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Cadastrar Time"/>
+                <Property name="text" type="java.lang.String" value="Cadastrar Grupo"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="tf_teamName">
+            <Component class="javax.swing.JTextField" name="tf_groupDescription">
             </Component>
-            <Component class="javax.swing.JButton" name="btn_storeTeam">
+            <Component class="javax.swing.JButton" name="btn_storeGroup">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="48" green="a4" red="1b" type="rgb"/>
@@ -340,7 +323,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Cadastrar Time"/>
+                <Property name="text" type="java.lang.String" value="Cadastrar Grupo"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
                     <LineBorder>
@@ -352,35 +335,12 @@
                 <Property name="opaque" type="boolean" value="true"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_storeTeamActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_storeGroupActionPerformed"/>
               </Events>
-            </Component>
-            <Component class="javax.swing.JComboBox" name="jComboBox1">
-              <Properties>
-                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="4">
-                    <StringItem index="0" value="Item 1"/>
-                    <StringItem index="1" value="Item 2"/>
-                    <StringItem index="2" value="Item 3"/>
-                    <StringItem index="3" value="Item 4"/>
-                  </StringArray>
-                </Property>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBox1ActionPerformed"/>
-              </Events>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-              </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel2">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Nome do time"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="jLabel3">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Grupo"/>
+                <Property name="text" type="java.lang.String" value="Descri&#xe7;&#xe3;o"/>
               </Properties>
             </Component>
           </SubComponents>

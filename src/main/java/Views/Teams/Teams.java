@@ -5,7 +5,7 @@
 package Views.Teams;
 
 import Views.Dashboard;
-import Views.Groups;
+import Views.Groups.Groups;
 import Views.Simulator;
 import Views.Users;
 

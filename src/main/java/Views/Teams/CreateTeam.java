@@ -7,7 +7,7 @@ package Views.Teams;
 import DAOs.TimeDAO;
 import Models.Time;
 import Views.Dashboard;
-import Views.Groups;
+import Views.Groups.Groups;
 import Views.Simulator;
 import Views.Users;
 import javax.swing.JOptionPane;
@@ -48,6 +48,8 @@ public class CreateTeam extends javax.swing.JFrame {
         tf_teamName = new javax.swing.JTextField();
         btn_storeTeam = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBounds(new java.awt.Rectangle(0, 0, 1280, 720));
@@ -186,6 +188,10 @@ public class CreateTeam extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setText("Nome do time");
+
+        jLabel3.setText("Grupo");
+
         javax.swing.GroupLayout jp_btns_timesLayout = new javax.swing.GroupLayout(jp_btns_times);
         jp_btns_times.setLayout(jp_btns_timesLayout);
         jp_btns_timesLayout.setHorizontalGroup(
@@ -199,7 +205,9 @@ public class CreateTeam extends javax.swing.JFrame {
                         .addGap(140, 140, 140)
                         .addGroup(jp_btns_timesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btn_storeTeam, javax.swing.GroupLayout.PREFERRED_SIZE, 677, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 677, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 677, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3))))
                 .addContainerGap(221, Short.MAX_VALUE))
             .addGroup(jp_btns_timesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jp_btns_timesLayout.createSequentialGroup()
@@ -212,7 +220,11 @@ public class CreateTeam extends javax.swing.JFrame {
             .addGroup(jp_btns_timesLayout.createSequentialGroup()
                 .addGap(40, 40, 40)
                 .addComponent(jLabel1)
-                .addGap(213, 213, 213)
+                .addGap(52, 52, 52)
+                .addComponent(jLabel2)
+                .addGap(105, 105, 105)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(102, 102, 102)
                 .addComponent(btn_storeTeam, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -348,6 +360,8 @@ public class CreateTeam extends javax.swing.JFrame {
     private javax.swing.JButton btn_users;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jp_btns_times;
