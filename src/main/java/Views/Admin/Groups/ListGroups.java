@@ -2,14 +2,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package Views.Teams;
+package Views.Admin.Groups;
 
+import Views.Admin.Teams.Teams;
+import DAOs.GroupDAO;
 import DAOs.TimeDAO;
+import Models.Group;
 import Models.Time;
-import Views.Dashboard;
-import Views.Groups.Groups;
-import Views.Simulator;
-import Views.Users;
+import Views.Admin.Dashboard;
+import Views.Admin.Groups.Groups;
+import Views.Admin.Simulator;
+import Views.Admin.Users;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
@@ -18,25 +21,25 @@ import javax.swing.JList;
  *
  * @author bruno
  */
-public class ListTeams extends javax.swing.JFrame {
+public class ListGroups extends javax.swing.JFrame {
 
     /**
-     * Creates new form Teams
+     * Creates new form Groups
      */
-    public ListTeams() {
+    public ListGroups() {
         initComponents();
         setLocationRelativeTo(null);
-        loadTeamsList();
+        loadGroupsList();
     }
     
-    private void loadTeamsList() {
-        ArrayList<Time> teams = TimeDAO.list();
+    private void loadGroupsList() {
+        ArrayList<Group> groups = GroupDAO.list();
         DefaultListModel listModel = new DefaultListModel();
         
-        for (int i = 0; i < teams.size(); i++) {
-            listModel.addElement(teams.get(i).getNome() + " " + teams.get(i).getId_grupo());
+        for (int i = 0; i < groups.size(); i++) {
+            listModel.addElement(groups.get(i).getDescription());
         }
-        list_teams.setModel(listModel);
+        list_groups.setModel(listModel);
     }
     
     /**
@@ -59,7 +62,7 @@ public class ListTeams extends javax.swing.JFrame {
         jp_btns_times = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        list_teams = new javax.swing.JList<>();
+        list_groups = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBounds(new java.awt.Rectangle(0, 0, 1280, 720));
@@ -112,9 +115,7 @@ public class ListTeams extends javax.swing.JFrame {
             }
         });
 
-        btn_times.setBackground(new java.awt.Color(27, 164, 72));
         btn_times.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        btn_times.setForeground(new java.awt.Color(255, 255, 255));
         btn_times.setText("Times");
         btn_times.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245)));
         btn_times.setFocusable(false);
@@ -125,7 +126,9 @@ public class ListTeams extends javax.swing.JFrame {
             }
         });
 
+        btn_groups.setBackground(new java.awt.Color(27, 164, 72));
         btn_groups.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        btn_groups.setForeground(new java.awt.Color(255, 255, 255));
         btn_groups.setText("Grupos");
         btn_groups.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245)));
         btn_groups.setFocusable(false);
@@ -176,9 +179,9 @@ public class ListTeams extends javax.swing.JFrame {
         jp_btns_times.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
-        jLabel1.setText("Lista de Times");
+        jLabel1.setText("Lista de Grupos");
 
-        jScrollPane1.setViewportView(list_teams);
+        jScrollPane1.setViewportView(list_groups);
 
         javax.swing.GroupLayout jp_btns_timesLayout = new javax.swing.GroupLayout(jp_btns_times);
         jp_btns_times.setLayout(jp_btns_timesLayout);
@@ -281,21 +284,27 @@ public class ListTeams extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ListTeams.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListGroups.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ListTeams.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListGroups.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ListTeams.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListGroups.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ListTeams.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListGroups.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ListTeams().setVisible(true);
+                new ListGroups().setVisible(true);
             }
         });
     }
@@ -312,6 +321,6 @@ public class ListTeams extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel jp_btns_times;
     private javax.swing.JLabel lbl_logo;
-    private javax.swing.JList<String> list_teams;
+    private javax.swing.JList<String> list_groups;
     // End of variables declaration//GEN-END:variables
 }

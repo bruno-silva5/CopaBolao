@@ -2,14 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package Views.Teams;
+package Views.Admin.Teams;
 
 import DAOs.TimeDAO;
 import Models.Time;
-import Views.Dashboard;
-import Views.Groups.Groups;
-import Views.Simulator;
-import Views.Users;
+import Views.Admin.Dashboard;
+import Views.Admin.Groups.Groups;
+import Views.Admin.Simulator;
+import Views.Admin.Users;
 import javax.swing.JOptionPane;
 
 /**

@@ -6,7 +6,7 @@ package DAOs;
 
 import Models.Group;
 import Models.User;
-import com.mycompany.copabolao.ConnectionFactory;
+import CopaBolao.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

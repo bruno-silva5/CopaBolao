@@ -2,24 +2,23 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package Views.Groups;
+package Views.Admin.Teams;
 
-import Views.Teams.*;
-import Views.Dashboard;
-import Views.Groups.Groups;
-import Views.Simulator;
-import Views.Users;
+import Views.Admin.Dashboard;
+import Views.Admin.Groups.Groups;
+import Views.Admin.Simulator;
+import Views.Admin.Users;
 
 /**
  *
  * @author bruno
  */
-public class Groups extends javax.swing.JFrame {
+public class Teams extends javax.swing.JFrame {
 
     /**
      * Creates new form Teams
      */
-    public Groups() {
+    public Teams() {
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -96,7 +95,9 @@ public class Groups extends javax.swing.JFrame {
             }
         });
 
+        btn_times.setBackground(new java.awt.Color(27, 164, 72));
         btn_times.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        btn_times.setForeground(new java.awt.Color(255, 255, 255));
         btn_times.setText("Times");
         btn_times.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245)));
         btn_times.setFocusable(false);
@@ -107,9 +108,7 @@ public class Groups extends javax.swing.JFrame {
             }
         });
 
-        btn_groups.setBackground(new java.awt.Color(27, 164, 72));
         btn_groups.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        btn_groups.setForeground(new java.awt.Color(255, 255, 255));
         btn_groups.setText("Grupos");
         btn_groups.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245)));
         btn_groups.setFocusable(false);
@@ -160,7 +159,7 @@ public class Groups extends javax.swing.JFrame {
         jp_btns_times.setBackground(new java.awt.Color(255, 255, 255));
 
         btn_createTeam.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
-        btn_createTeam.setText("Criar novo grupo");
+        btn_createTeam.setText("Criar novo time");
         btn_createTeam.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_createTeamActionPerformed(evt);
@@ -168,7 +167,7 @@ public class Groups extends javax.swing.JFrame {
         });
 
         btn_listTeams.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
-        btn_listTeams.setText("Ver grupos");
+        btn_listTeams.setText("Ver lista de times");
         btn_listTeams.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_listTeamsActionPerformed(evt);
@@ -247,8 +246,8 @@ public class Groups extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_simulatorActionPerformed
 
     private void btn_timesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_timesActionPerformed
-        (new Teams()).setVisible(true);
         dispose();
+        (new Teams()).setVisible(true);
     }//GEN-LAST:event_btn_timesActionPerformed
 
     private void btn_groupsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_groupsActionPerformed
@@ -257,12 +256,12 @@ public class Groups extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_groupsActionPerformed
 
     private void btn_createTeamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_createTeamActionPerformed
-        (new CreateGroup()).setVisible(true);
+        (new CreateTeam()).setVisible(true);
         dispose();
     }//GEN-LAST:event_btn_createTeamActionPerformed
 
     private void btn_listTeamsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_listTeamsActionPerformed
-        (new ListGroups()).setVisible(true);
+        (new ListTeams()).setVisible(true);
         dispose();
     }//GEN-LAST:event_btn_listTeamsActionPerformed
 
@@ -283,23 +282,20 @@ public class Groups extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Groups.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Teams.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Groups.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Teams.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Groups.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Teams.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Groups.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Teams.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Groups().setVisible(true);
+                new Teams().setVisible(true);
             }
         });
     }

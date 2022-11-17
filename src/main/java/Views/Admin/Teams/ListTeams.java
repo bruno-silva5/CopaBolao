@@ -2,27 +2,43 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package Views.Teams;
+package Views.Admin.Teams;
 
-import Views.Dashboard;
-import Views.Groups.Groups;
-import Views.Simulator;
-import Views.Users;
+import DAOs.TimeDAO;
+import Models.Time;
+import Views.Admin.Dashboard;
+import Views.Admin.Groups.Groups;
+import Views.Admin.Simulator;
+import Views.Admin.Users;
+import java.util.ArrayList;
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
 
 /**
  *
  * @author bruno
  */
-public class Teams extends javax.swing.JFrame {
+public class ListTeams extends javax.swing.JFrame {
 
     /**
      * Creates new form Teams
      */
-    public Teams() {
+    public ListTeams() {
         initComponents();
         setLocationRelativeTo(null);
+        loadTeamsList();
     }
-
+    
+    private void loadTeamsList() {
+        ArrayList<Time> teams = TimeDAO.list();
+        DefaultListModel listModel = new DefaultListModel();
+        
+        for (int i = 0; i < teams.size(); i++) {
+            listModel.addElement(teams.get(i).getNome() + " " + teams.get(i).getId_grupo());
+        }
+        list_teams.setModel(listModel);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -41,8 +57,9 @@ public class Teams extends javax.swing.JFrame {
         btn_times = new javax.swing.JButton();
         btn_groups = new javax.swing.JButton();
         jp_btns_times = new javax.swing.JPanel();
-        btn_createTeam = new javax.swing.JButton();
-        btn_listTeams = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        list_teams = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBounds(new java.awt.Rectangle(0, 0, 1280, 720));
@@ -158,41 +175,33 @@ public class Teams extends javax.swing.JFrame {
 
         jp_btns_times.setBackground(new java.awt.Color(255, 255, 255));
 
-        btn_createTeam.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
-        btn_createTeam.setText("Criar novo time");
-        btn_createTeam.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_createTeamActionPerformed(evt);
-            }
-        });
+        jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
+        jLabel1.setText("Lista de Times");
 
-        btn_listTeams.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
-        btn_listTeams.setText("Ver lista de times");
-        btn_listTeams.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_listTeamsActionPerformed(evt);
-            }
-        });
+        jScrollPane1.setViewportView(list_teams);
 
         javax.swing.GroupLayout jp_btns_timesLayout = new javax.swing.GroupLayout(jp_btns_times);
         jp_btns_times.setLayout(jp_btns_timesLayout);
         jp_btns_timesLayout.setHorizontalGroup(
             jp_btns_timesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp_btns_timesLayout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addComponent(btn_listTeams, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
-                .addComponent(btn_createTeam, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37))
+            .addGroup(jp_btns_timesLayout.createSequentialGroup()
+                .addGroup(jp_btns_timesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jp_btns_timesLayout.createSequentialGroup()
+                        .addGap(295, 295, 295)
+                        .addComponent(jLabel1))
+                    .addGroup(jp_btns_timesLayout.createSequentialGroup()
+                        .addGap(45, 45, 45)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 773, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
         jp_btns_timesLayout.setVerticalGroup(
             jp_btns_timesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jp_btns_timesLayout.createSequentialGroup()
-                .addGap(115, 115, 115)
-                .addGroup(jp_btns_timesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_createTeam, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_listTeams, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(118, Short.MAX_VALUE))
+                .addGap(40, 40, 40)
+                .addComponent(jLabel1)
+                .addGap(43, 43, 43)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(77, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -203,7 +212,7 @@ public class Teams extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(58, 58, 58)
                 .addComponent(jp_btns_times, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 73, Short.MAX_VALUE))
+                .addGap(0, 68, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -246,24 +255,14 @@ public class Teams extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_simulatorActionPerformed
 
     private void btn_timesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_timesActionPerformed
-        dispose();
         (new Teams()).setVisible(true);
+        dispose();
     }//GEN-LAST:event_btn_timesActionPerformed
 
     private void btn_groupsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_groupsActionPerformed
         (new Groups()).setVisible(true);
         dispose();
     }//GEN-LAST:event_btn_groupsActionPerformed
-
-    private void btn_createTeamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_createTeamActionPerformed
-        (new CreateTeam()).setVisible(true);
-        dispose();
-    }//GEN-LAST:event_btn_createTeamActionPerformed
-
-    private void btn_listTeamsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_listTeamsActionPerformed
-        (new ListTeams()).setVisible(true);
-        dispose();
-    }//GEN-LAST:event_btn_listTeamsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -282,35 +281,37 @@ public class Teams extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Teams.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListTeams.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Teams.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListTeams.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Teams.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListTeams.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Teams.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListTeams.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Teams().setVisible(true);
+                new ListTeams().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_createTeam;
     private javax.swing.JButton btn_dashboard;
     private javax.swing.JButton btn_groups;
-    private javax.swing.JButton btn_listTeams;
     private javax.swing.JButton btn_simulator;
     private javax.swing.JButton btn_times;
     private javax.swing.JButton btn_users;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel jp_btns_times;
     private javax.swing.JLabel lbl_logo;
+    private javax.swing.JList<String> list_teams;
     // End of variables declaration//GEN-END:variables
 }

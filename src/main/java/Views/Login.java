@@ -4,8 +4,10 @@
  */
 package Views;
 
+import Views.Admin.Dashboard;
 import DAOs.UserDAO;
 import Models.User;
+import Views.User.ListTeams;
 import javax.swing.JOptionPane;
 
 /**
@@ -177,8 +179,15 @@ public class Login extends javax.swing.JFrame {
 
         User user = new User(username, password);
 
-        if (UserDAO.auth(user)) {
-            (new Dashboard()).setVisible(true);
+        user = UserDAO.auth(user);
+        
+        if (user.isAuthenticated()) {
+            if (user.getId_nivelAcesso() == 1) {
+                (new Dashboard()).setVisible(true);
+            } else {
+                (new ListTeams()).setVisible(true);
+            }
+            
             dispose();
         } else {
             JOptionPane.showMessageDialog(null, "Usuario/Senha inválido(s)");

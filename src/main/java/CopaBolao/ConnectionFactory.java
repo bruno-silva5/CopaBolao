@@ -1,4 +1,4 @@
-package com.mycompany.copabolao;
+package CopaBolao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

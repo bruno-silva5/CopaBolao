@@ -9,15 +9,26 @@ package Models;
  * @author bruno
  */
 public class User {
-    private String id, nome, senha, email;
+    private int id;
+    private String nome, senha, email;
     private double saldo;
     private int id_nivelAcesso;
+    private boolean authenticated;
 
-    public User(String nome, String senha, String email, int id_nivelAcesso) {
+    public User(int id, String nome, String senha, String email, double saldo, int id_nivelAcesso) {
         this.nome = nome;
         this.senha = senha;
         this.email = email;
         this.id_nivelAcesso = id_nivelAcesso;
+        this.authenticated = false;
+    }
+    
+    public boolean isAuthenticated() {
+        return authenticated;
+    }
+
+    public void setAuthenticated(boolean authenticated) {
+        this.authenticated = authenticated;
     }
 
     public User(String email, String senha) {
@@ -25,11 +36,11 @@ public class User {
         this.email = email;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -72,4 +83,5 @@ public class User {
     public void setId_nivelAcesso(int id_nivelAcesso) {
         this.id_nivelAcesso = id_nivelAcesso;
     }
+
 }

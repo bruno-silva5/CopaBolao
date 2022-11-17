@@ -5,7 +5,7 @@
 package DAOs;
 
 import Models.User;
-import com.mycompany.copabolao.ConnectionFactory;
+import CopaBolao.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,7 +16,7 @@ import java.sql.ResultSet;
  */
 public class UserDAO {
 
-    public static boolean auth(User user) {
+    public static User auth(User user) {
         try {
             String sql = "SELECT * FROM TB_USER where email like ? and senha like ?";
 
@@ -27,17 +27,29 @@ public class UserDAO {
             ps.setString(2, user.getSenha());
 
             boolean result = false;
+            
             try (ResultSet rs = ps.executeQuery()) {
                 result = rs.next();
+                if (result) {
+                    int id = rs.getInt("id");
+                    String nome = rs.getString("nome");
+                    double saldo = rs.getDouble("saldo");
+                    int nivelAcesso = rs.getInt("id_nivelAcesso");
+
+                    user.setId_nivelAcesso(nivelAcesso);
+                    user.setSaldo(saldo);
+                    user.setNome(nome);
+                    user.setAuthenticated(true);
+                }
             }
-            
+
             ps.close();
             conexao.close();
             
-            return result;
+            return user;
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
+            return null;
         }
     }
 }
