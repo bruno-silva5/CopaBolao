@@ -58,8 +58,9 @@ public class GroupDAO {
             int contador = 0;
 
             while (rs.next()) {
+                int id = rs.getInt("id");
                 String description = rs.getString("descricao");
-                Group group = new Group(description);
+                Group group = new Group(id, description);
                 lista.add(group);
             }
 
@@ -69,6 +70,31 @@ public class GroupDAO {
         }
 
         return null;
+    }
+
+    public static boolean delete(Group group)
+    {
+        try {
+            String sql = "DELETE FROM TB_GRUPO WHERE id = ?";
+
+            Connection conexao = (new ConnectionFactory()).obterConexao();
+
+            PreparedStatement ps = conexao.prepareStatement(sql);
+            ps.setInt(1, group.getId());
+
+            // 5 Executar o comando
+            int result = ps.executeUpdate();
+
+            // 6 Fechar a conexao
+            ps.close();
+            conexao.close();
+
+            return result == 1;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
 }

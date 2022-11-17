@@ -20,6 +20,9 @@ import javax.swing.JList;
  */
 public class ListTeams extends javax.swing.JFrame {
 
+    DefaultListModel listModel = new DefaultListModel();
+    ArrayList<Time> teams = TimeDAO.list();
+    
     /**
      * Creates new form Teams
      */
@@ -30,9 +33,6 @@ public class ListTeams extends javax.swing.JFrame {
     }
     
     private void loadTeamsList() {
-        ArrayList<Time> teams = TimeDAO.list();
-        DefaultListModel listModel = new DefaultListModel();
-        
         for (int i = 0; i < teams.size(); i++) {
             listModel.addElement(teams.get(i).getNome() + " " + teams.get(i).getId_grupo());
         }
@@ -60,6 +60,8 @@ public class ListTeams extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         list_teams = new javax.swing.JList<>();
+        btn_addTeam = new javax.swing.JButton();
+        btn_removeTeam = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBounds(new java.awt.Rectangle(0, 0, 1280, 720));
@@ -178,7 +180,32 @@ public class ListTeams extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
         jLabel1.setText("Lista de Times");
 
+        list_teams.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
+        list_teams.setSelectionBackground(new java.awt.Color(27, 164, 72));
+        list_teams.setSelectionForeground(new java.awt.Color(255, 255, 255));
         jScrollPane1.setViewportView(list_teams);
+
+        btn_addTeam.setBackground(new java.awt.Color(27, 164, 72));
+        btn_addTeam.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        btn_addTeam.setForeground(new java.awt.Color(255, 255, 255));
+        btn_addTeam.setText("Adicionar");
+        btn_addTeam.setBorderPainted(false);
+        btn_addTeam.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_addTeamActionPerformed(evt);
+            }
+        });
+
+        btn_removeTeam.setBackground(new java.awt.Color(255, 0, 0));
+        btn_removeTeam.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        btn_removeTeam.setForeground(new java.awt.Color(255, 255, 255));
+        btn_removeTeam.setText("Remover");
+        btn_removeTeam.setBorderPainted(false);
+        btn_removeTeam.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_removeTeamActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jp_btns_timesLayout = new javax.swing.GroupLayout(jp_btns_times);
         jp_btns_times.setLayout(jp_btns_timesLayout);
@@ -191,8 +218,12 @@ public class ListTeams extends javax.swing.JFrame {
                         .addComponent(jLabel1))
                     .addGroup(jp_btns_timesLayout.createSequentialGroup()
                         .addGap(45, 45, 45)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 773, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(45, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 640, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(36, 36, 36)
+                        .addGroup(jp_btns_timesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btn_addTeam, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btn_removeTeam, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
         jp_btns_timesLayout.setVerticalGroup(
             jp_btns_timesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -200,7 +231,12 @@ public class ListTeams extends javax.swing.JFrame {
                 .addGap(40, 40, 40)
                 .addComponent(jLabel1)
                 .addGap(43, 43, 43)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jp_btns_timesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jp_btns_timesLayout.createSequentialGroup()
+                        .addComponent(btn_addTeam)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btn_removeTeam)))
                 .addContainerGap(77, Short.MAX_VALUE))
         );
 
@@ -212,7 +248,7 @@ public class ListTeams extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(58, 58, 58)
                 .addComponent(jp_btns_times, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 68, Short.MAX_VALUE))
+                .addGap(0, 52, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -264,6 +300,20 @@ public class ListTeams extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btn_groupsActionPerformed
 
+    private void btn_addTeamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addTeamActionPerformed
+        (new CreateTeam()).setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btn_addTeamActionPerformed
+
+    private void btn_removeTeamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_removeTeamActionPerformed
+        int index = list_teams.getSelectedIndex();
+        Time time = this.teams.get(index);
+        if (TimeDAO.delete(time)) {
+            listModel.removeElementAt(index);
+            this.teams.remove(index);
+        }
+    }//GEN-LAST:event_btn_removeTeamActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -301,8 +351,10 @@ public class ListTeams extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_addTeam;
     private javax.swing.JButton btn_dashboard;
     private javax.swing.JButton btn_groups;
+    private javax.swing.JButton btn_removeTeam;
     private javax.swing.JButton btn_simulator;
     private javax.swing.JButton btn_times;
     private javax.swing.JButton btn_users;

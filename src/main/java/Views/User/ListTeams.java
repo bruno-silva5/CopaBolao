@@ -143,6 +143,9 @@ public class ListTeams extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
         jLabel1.setText("Lista de Times");
 
+        list_teams.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
+        list_teams.setSelectionBackground(new java.awt.Color(27, 164, 72));
+        list_teams.setSelectionForeground(new java.awt.Color(255, 255, 255));
         jScrollPane1.setViewportView(list_teams);
 
         javax.swing.GroupLayout jp_btns_timesLayout = new javax.swing.GroupLayout(jp_btns_times);

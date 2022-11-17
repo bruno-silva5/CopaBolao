@@ -18,6 +18,8 @@ import javax.swing.JList;
  */
 public class ListGroups extends javax.swing.JFrame {
 
+    DefaultListModel listModel = new DefaultListModel();
+    
     /**
      * Creates new form Groups
      */
@@ -29,7 +31,6 @@ public class ListGroups extends javax.swing.JFrame {
     
     private void loadGroupsList() {
         ArrayList<Group> groups = GroupDAO.list();
-        DefaultListModel listModel = new DefaultListModel();
         
         for (int i = 0; i < groups.size(); i++) {
             listModel.addElement(groups.get(i).getDescription());
@@ -144,6 +145,14 @@ public class ListGroups extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
         jLabel1.setText("Lista de Grupos");
 
+        list_groups.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
+        list_groups.setSelectionBackground(new java.awt.Color(27, 164, 72));
+        list_groups.setSelectionForeground(new java.awt.Color(255, 255, 255));
+        list_groups.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                list_groupsMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(list_groups);
 
         javax.swing.GroupLayout jp_btns_timesLayout = new javax.swing.GroupLayout(jp_btns_times);
@@ -157,8 +166,8 @@ public class ListGroups extends javax.swing.JFrame {
                         .addComponent(jLabel1))
                     .addGroup(jp_btns_timesLayout.createSequentialGroup()
                         .addGap(45, 45, 45)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 773, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(45, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 767, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
         jp_btns_timesLayout.setVerticalGroup(
             jp_btns_timesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -178,7 +187,7 @@ public class ListGroups extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(58, 58, 58)
                 .addComponent(jp_btns_times, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 68, Short.MAX_VALUE))
+                .addGap(0, 69, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -219,6 +228,10 @@ public class ListGroups extends javax.swing.JFrame {
         (new ListGroups()).setVisible(true);
         dispose();
     }//GEN-LAST:event_btn_groupsActionPerformed
+
+    private void list_groupsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_list_groupsMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_list_groupsMouseClicked
 
     /**
      * @param args the command line arguments

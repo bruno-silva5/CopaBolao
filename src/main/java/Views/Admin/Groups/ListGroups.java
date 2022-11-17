@@ -23,6 +23,9 @@ import javax.swing.JList;
  */
 public class ListGroups extends javax.swing.JFrame {
 
+    ArrayList<Group> groups = GroupDAO.list();
+    DefaultListModel listModel = new DefaultListModel();
+    
     /**
      * Creates new form Groups
      */
@@ -33,8 +36,6 @@ public class ListGroups extends javax.swing.JFrame {
     }
     
     private void loadGroupsList() {
-        ArrayList<Group> groups = GroupDAO.list();
-        DefaultListModel listModel = new DefaultListModel();
         
         for (int i = 0; i < groups.size(); i++) {
             listModel.addElement(groups.get(i).getDescription());
@@ -63,6 +64,8 @@ public class ListGroups extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         list_groups = new javax.swing.JList<>();
+        btn_addGroup = new javax.swing.JButton();
+        btn_removeGroup = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBounds(new java.awt.Rectangle(0, 0, 1280, 720));
@@ -181,21 +184,49 @@ public class ListGroups extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
         jLabel1.setText("Lista de Grupos");
 
+        list_groups.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
+        list_groups.setSelectionBackground(new java.awt.Color(27, 164, 72));
+        list_groups.setSelectionForeground(new java.awt.Color(255, 255, 255));
         jScrollPane1.setViewportView(list_groups);
+
+        btn_addGroup.setBackground(new java.awt.Color(27, 164, 72));
+        btn_addGroup.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        btn_addGroup.setForeground(new java.awt.Color(255, 255, 255));
+        btn_addGroup.setText("Adicionar");
+        btn_addGroup.setBorderPainted(false);
+        btn_addGroup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_addGroupActionPerformed(evt);
+            }
+        });
+
+        btn_removeGroup.setBackground(new java.awt.Color(255, 0, 0));
+        btn_removeGroup.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        btn_removeGroup.setForeground(new java.awt.Color(255, 255, 255));
+        btn_removeGroup.setText("Remover");
+        btn_removeGroup.setBorderPainted(false);
+        btn_removeGroup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_removeGroupActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jp_btns_timesLayout = new javax.swing.GroupLayout(jp_btns_times);
         jp_btns_times.setLayout(jp_btns_timesLayout);
         jp_btns_timesLayout.setHorizontalGroup(
             jp_btns_timesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jp_btns_timesLayout.createSequentialGroup()
-                .addGroup(jp_btns_timesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jp_btns_timesLayout.createSequentialGroup()
-                        .addGap(295, 295, 295)
-                        .addComponent(jLabel1))
-                    .addGroup(jp_btns_timesLayout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 773, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addGap(295, 295, 295)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jp_btns_timesLayout.createSequentialGroup()
+                .addGap(45, 45, 45)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 645, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addGroup(jp_btns_timesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btn_addGroup, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_removeGroup, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24))
         );
         jp_btns_timesLayout.setVerticalGroup(
             jp_btns_timesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -203,7 +234,12 @@ public class ListGroups extends javax.swing.JFrame {
                 .addGap(40, 40, 40)
                 .addComponent(jLabel1)
                 .addGap(43, 43, 43)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jp_btns_timesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jp_btns_timesLayout.createSequentialGroup()
+                        .addComponent(btn_addGroup)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btn_removeGroup)))
                 .addContainerGap(77, Short.MAX_VALUE))
         );
 
@@ -267,6 +303,20 @@ public class ListGroups extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btn_groupsActionPerformed
 
+    private void btn_addGroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addGroupActionPerformed
+        (new CreateGroup()).setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btn_addGroupActionPerformed
+
+    private void btn_removeGroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_removeGroupActionPerformed
+        int index = list_groups.getSelectedIndex();
+        Group group = this.groups.get(index);
+        if (GroupDAO.delete(group)) {
+            listModel.removeElementAt(index);
+            this.groups.remove(index);
+        }
+    }//GEN-LAST:event_btn_removeGroupActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -310,8 +360,10 @@ public class ListGroups extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_addGroup;
     private javax.swing.JButton btn_dashboard;
     private javax.swing.JButton btn_groups;
+    private javax.swing.JButton btn_removeGroup;
     private javax.swing.JButton btn_simulator;
     private javax.swing.JButton btn_times;
     private javax.swing.JButton btn_users;

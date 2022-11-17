@@ -12,7 +12,8 @@ public class Time {
     int id, id_grupo;
     String nome;
 
-    public Time(int id_grupo, String nome) {
+    public Time(int id, int id_grupo, String nome) {
+        this.id = id;
         this.id_grupo = id_grupo;
         this.nome = nome;
     }

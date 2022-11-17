@@ -15,6 +15,11 @@ public class Group {
     public Group(String description) {
         this.description = description;
     }
+    
+    public Group(int id, String description) {
+        this.id = id;
+        this.description = description;
+    }
 
     public int getId() {
         return id;

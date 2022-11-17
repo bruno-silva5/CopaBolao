@@ -64,9 +64,10 @@ public class TimeDAO {
             int contador = 0;
 
             while (rs.next()) {
+                int id = rs.getInt("id");
                 int id_grupo = rs.getInt("id_grupo");
                 String nome = rs.getString("nome");
-                Time time = new Time(id_grupo, nome);
+                Time time = new Time(id, id_grupo, nome);
                 lista.add(time);
             }
             return lista;
@@ -77,4 +78,29 @@ public class TimeDAO {
         return null;
     }
 
+    public static boolean delete(Time time)
+    {
+        try {
+            String sql = "DELETE FROM TB_TIME WHERE id = ?";
+
+            Connection conexao = (new ConnectionFactory()).obterConexao();
+
+            PreparedStatement ps = conexao.prepareStatement(sql);
+            ps.setInt(1, time.getId());
+
+            // 5 Executar o comando
+            int result = ps.executeUpdate();
+
+            // 6 Fechar a conexao
+            ps.close();
+            conexao.close();
+
+            return result == 1;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
 }
