@@ -169,8 +169,10 @@ public class CreateGroup extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
         jLabel1.setText("Cadastrar Grupo");
 
+        tf_groupDescription.setFont(new java.awt.Font("Ubuntu", 0, 20)); // NOI18N
+
         btn_storeGroup.setBackground(new java.awt.Color(27, 164, 72));
-        btn_storeGroup.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        btn_storeGroup.setFont(new java.awt.Font("Ubuntu", 1, 22)); // NOI18N
         btn_storeGroup.setForeground(new java.awt.Color(255, 255, 255));
         btn_storeGroup.setText("Cadastrar Grupo");
         btn_storeGroup.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245)));
@@ -182,6 +184,7 @@ public class CreateGroup extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jLabel2.setText("Descrição");
 
         javax.swing.GroupLayout jp_btns_timesLayout = new javax.swing.GroupLayout(jp_btns_times);

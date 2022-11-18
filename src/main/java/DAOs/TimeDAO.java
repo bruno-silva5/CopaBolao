@@ -29,8 +29,8 @@ public class TimeDAO {
             PreparedStatement ps = conexao.prepareStatement(sql);
             ps.setString(1, time.getNome());
 
-            if (time.getId_grupo() > 0) {
-                ps.setInt(2, time.getId_grupo());
+            if (time.getGroup() != null) {
+                ps.setInt(2, time.getGroup().getId());
             } else {
                 ps.setNull(2, 0);
             }
@@ -53,7 +53,7 @@ public class TimeDAO {
     public static ArrayList<Time> list() {
 
         ArrayList<Time> lista = new ArrayList<>();
-        String sql = "SELECT * FROM TB_TIME";
+        String sql = "SELECT t.*, g.descricao FROM TB_TIME t JOIN TB_GRUPO g ON t.id_grupo = g.id";
 
         try {
             Connection conn = ConnectionFactory.obterConexao();
@@ -67,7 +67,8 @@ public class TimeDAO {
                 int id = rs.getInt("id");
                 int id_grupo = rs.getInt("id_grupo");
                 String nome = rs.getString("nome");
-                Time time = new Time(id, id_grupo, nome);
+                String grupoDescricao = rs.getString("descricao");
+                Time time = new Time(id, id_grupo, nome, grupoDescricao);
                 lista.add(time);
             }
             return lista;

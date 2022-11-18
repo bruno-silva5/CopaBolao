@@ -31,14 +31,14 @@ public class ListTeams extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         loadTeamsList();
     }
-    
+
     private void loadTeamsList() {
         for (int i = 0; i < teams.size(); i++) {
-            listModel.addElement(teams.get(i).getNome() + " " + teams.get(i).getId_grupo());
+            listModel.addElement(teams.get(i).getNome() + " - " + teams.get(i).getGrupoDescricao());
         }
         list_teams.setModel(listModel);
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

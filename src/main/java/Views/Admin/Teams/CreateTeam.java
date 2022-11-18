@@ -4,12 +4,16 @@
  */
 package Views.Admin.Teams;
 
+import DAOs.GroupDAO;
 import DAOs.TimeDAO;
+import Models.Group;
 import Models.Time;
 import Views.Admin.Dashboard;
 import Views.Admin.Groups.Groups;
 import Views.Admin.Simulator;
 import Views.Admin.Users;
+import java.awt.Color;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -18,14 +22,30 @@ import javax.swing.JOptionPane;
  */
 public class CreateTeam extends javax.swing.JFrame {
 
+    ArrayList<Group> groups = GroupDAO.list();
     /**
      * Creates new form Teams
      */
     public CreateTeam() {
         initComponents();
         setLocationRelativeTo(null);
+        setGroupList();
+
+        if (groups.size() < 1) {
+            btn_storeTeam.setForeground(Color.black);
+            btn_storeTeam.setEnabled(false);
+            btn_storeTeam.setText("Não é possível cadastrar, não há grupos criados");
+            cb_groups.setEnabled(false);
+        }
     }
 
+    private void setGroupList() {
+        for (int i = 0; i < groups.size(); i++) {
+            cb_groups.addItem(groups.get(i).getDescription());
+        }
+    }
+        
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -47,7 +67,7 @@ public class CreateTeam extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         tf_teamName = new javax.swing.JTextField();
         btn_storeTeam = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cb_groups = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
@@ -168,8 +188,10 @@ public class CreateTeam extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
         jLabel1.setText("Cadastrar Time");
 
+        tf_teamName.setFont(new java.awt.Font("Ubuntu", 0, 20)); // NOI18N
+
         btn_storeTeam.setBackground(new java.awt.Color(27, 164, 72));
-        btn_storeTeam.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        btn_storeTeam.setFont(new java.awt.Font("Ubuntu", 1, 22)); // NOI18N
         btn_storeTeam.setForeground(new java.awt.Color(255, 255, 255));
         btn_storeTeam.setText("Cadastrar Time");
         btn_storeTeam.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245)));
@@ -181,15 +203,17 @@ public class CreateTeam extends javax.swing.JFrame {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        cb_groups.setFont(new java.awt.Font("Ubuntu", 0, 20)); // NOI18N
+        cb_groups.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                cb_groupsActionPerformed(evt);
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jLabel2.setText("Nome do time");
 
+        jLabel3.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jLabel3.setText("Grupo");
 
         javax.swing.GroupLayout jp_btns_timesLayout = new javax.swing.GroupLayout(jp_btns_times);
@@ -205,7 +229,7 @@ public class CreateTeam extends javax.swing.JFrame {
                         .addGap(140, 140, 140)
                         .addGroup(jp_btns_timesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btn_storeTeam, javax.swing.GroupLayout.PREFERRED_SIZE, 677, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 677, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cb_groups, javax.swing.GroupLayout.PREFERRED_SIZE, 677, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2)
                             .addComponent(jLabel3))))
                 .addContainerGap(221, Short.MAX_VALUE))
@@ -225,10 +249,10 @@ public class CreateTeam extends javax.swing.JFrame {
                 .addGap(105, 105, 105)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cb_groups, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(102, 102, 102)
                 .addComponent(btn_storeTeam, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(126, Short.MAX_VALUE))
+                .addContainerGap(128, Short.MAX_VALUE))
             .addGroup(jp_btns_timesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jp_btns_timesLayout.createSequentialGroup()
                     .addGap(167, 167, 167)
@@ -300,7 +324,7 @@ public class CreateTeam extends javax.swing.JFrame {
 
     private void btn_storeTeamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_storeTeamActionPerformed
         String teamName = tf_teamName.getText();
-        Time time = new Time(teamName);
+        Time time = new Time(teamName, groups.get(cb_groups.getSelectedIndex()));
 
         if (TimeDAO.create(time) == 0) {
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar o time!");
@@ -311,9 +335,9 @@ public class CreateTeam extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btn_storeTeamActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void cb_groupsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_groupsActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_cb_groupsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -358,7 +382,7 @@ public class CreateTeam extends javax.swing.JFrame {
     private javax.swing.JButton btn_storeTeam;
     private javax.swing.JButton btn_times;
     private javax.swing.JButton btn_users;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> cb_groups;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

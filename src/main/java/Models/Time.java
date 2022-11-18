@@ -11,15 +11,35 @@ package Models;
 public class Time {
     int id, id_grupo;
     String nome;
+    Group group;
+    String grupoDescricao;
 
-    public Time(int id, int id_grupo, String nome) {
+    public Time(int id, int id_grupo, String nome, String grupoDescricao) {
         this.id = id;
         this.id_grupo = id_grupo;
         this.nome = nome;
+        this.grupoDescricao = grupoDescricao;
+    }
+    
+    public Time(String nome, Group group) {
+        this.nome = nome;
+        this.group = group;
+    }
+    
+    public String getGrupoDescricao() {
+        return grupoDescricao;
     }
 
-    public Time(String nome) {
-        this.nome = nome;
+    public void setGrupoDescricao(String grupoDescricao) {
+        this.grupoDescricao = grupoDescricao;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
     }
 
     public int getId() {
