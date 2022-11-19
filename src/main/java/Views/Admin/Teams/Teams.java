@@ -35,7 +35,7 @@ public class Teams extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         lbl_logo = new javax.swing.JLabel();
-        btn_dashboard = new javax.swing.JButton();
+        btn_dashboard1 = new javax.swing.JButton();
         btn_users = new javax.swing.JButton();
         btn_simulator = new javax.swing.JButton();
         btn_times = new javax.swing.JButton();
@@ -58,18 +58,21 @@ public class Teams extends javax.swing.JFrame {
         jPanel2.setFocusable(false);
 
         lbl_logo.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
-        lbl_logo.setText("Logo");
+        lbl_logo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_logo.setIcon(new javax.swing.ImageIcon("assets/logo_menor.png"));
+        lbl_logo.setToolTipText("");
+        lbl_logo.setPreferredSize(new java.awt.Dimension(180, 100));
 
-        btn_dashboard.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        btn_dashboard.setText("Dashboard");
-        btn_dashboard.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245)));
-        btn_dashboard.setDefaultCapable(false);
-        btn_dashboard.setFocusPainted(false);
-        btn_dashboard.setFocusable(false);
-        btn_dashboard.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn_dashboard.addActionListener(new java.awt.event.ActionListener() {
+        btn_dashboard1.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        btn_dashboard1.setText("Dashboard");
+        btn_dashboard1.setBorderPainted(false);
+        btn_dashboard1.setDefaultCapable(false);
+        btn_dashboard1.setFocusPainted(false);
+        btn_dashboard1.setFocusable(false);
+        btn_dashboard1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn_dashboard1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_dashboardActionPerformed(evt);
+                btn_dashboard1ActionPerformed(evt);
             }
         });
 
@@ -124,27 +127,23 @@ public class Teams extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(102, 102, 102)
-                        .addComponent(lbl_logo))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btn_users, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btn_dashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btn_simulator, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btn_times, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btn_groups, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(58, Short.MAX_VALUE))
+                .addGap(46, 46, 46)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btn_users, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
+                    .addComponent(btn_dashboard1, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
+                    .addComponent(btn_simulator, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
+                    .addComponent(btn_times, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
+                    .addComponent(btn_groups, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
+                    .addComponent(lbl_logo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(28, 28, 28)
-                .addComponent(lbl_logo)
-                .addGap(34, 34, 34)
-                .addComponent(btn_dashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lbl_logo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addComponent(btn_dashboard1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btn_users, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -153,7 +152,7 @@ public class Teams extends javax.swing.JFrame {
                 .addComponent(btn_times, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btn_groups, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(329, Short.MAX_VALUE))
+                .addContainerGap(277, Short.MAX_VALUE))
         );
 
         jp_btns_times.setBackground(new java.awt.Color(255, 255, 255));
@@ -230,10 +229,19 @@ public class Teams extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn_dashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_dashboardActionPerformed
-        (new Dashboard()).setVisible(true);
+    private void btn_createTeamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_createTeamActionPerformed
+        (new CreateTeam()).setVisible(true);
         dispose();
-    }//GEN-LAST:event_btn_dashboardActionPerformed
+    }//GEN-LAST:event_btn_createTeamActionPerformed
+
+    private void btn_listTeamsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_listTeamsActionPerformed
+        (new ListTeams()).setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btn_listTeamsActionPerformed
+
+    private void btn_dashboard1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_dashboard1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_dashboard1ActionPerformed
 
     private void btn_usersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_usersActionPerformed
         (new Users()).setVisible(true);
@@ -246,24 +254,14 @@ public class Teams extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_simulatorActionPerformed
 
     private void btn_timesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_timesActionPerformed
-        dispose();
         (new Teams()).setVisible(true);
+        dispose();
     }//GEN-LAST:event_btn_timesActionPerformed
 
     private void btn_groupsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_groupsActionPerformed
         (new Groups()).setVisible(true);
         dispose();
     }//GEN-LAST:event_btn_groupsActionPerformed
-
-    private void btn_createTeamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_createTeamActionPerformed
-        (new CreateTeam()).setVisible(true);
-        dispose();
-    }//GEN-LAST:event_btn_createTeamActionPerformed
-
-    private void btn_listTeamsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_listTeamsActionPerformed
-        (new ListTeams()).setVisible(true);
-        dispose();
-    }//GEN-LAST:event_btn_listTeamsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -303,6 +301,7 @@ public class Teams extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_createTeam;
     private javax.swing.JButton btn_dashboard;
+    private javax.swing.JButton btn_dashboard1;
     private javax.swing.JButton btn_groups;
     private javax.swing.JButton btn_listTeams;
     private javax.swing.JButton btn_simulator;

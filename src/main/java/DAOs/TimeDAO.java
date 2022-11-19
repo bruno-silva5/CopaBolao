@@ -5,7 +5,6 @@
 package DAOs;
 
 import Models.Time;
-import Models.User;
 import CopaBolao.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,11 +19,18 @@ import java.util.logging.Logger;
  */
 public class TimeDAO {
 
-    public static int create(Time time) {
-        try {
-            String sql = "INSERT INTO TB_TIME(nome, id_grupo) VALUES (?, ?)";
+    private String error;
 
-            Connection conexao = (new ConnectionFactory()).obterConexao();
+    public int create(Time time) {
+        try {
+            Connection conexao = ConnectionFactory.obterConexao();
+
+            if (isTeamsLimitAchieved(conexao) >= 32) {
+                error = "Limite máximo de times cadastrado!";
+                return 0;
+            }
+
+            String sql = "INSERT INTO TB_TIME(nome, id_grupo) VALUES (?, ?)";
 
             PreparedStatement ps = conexao.prepareStatement(sql);
             ps.setString(1, time.getNome());
@@ -45,9 +51,99 @@ public class TimeDAO {
             return result;
 
         } catch (Exception e) {
+            error = "Desculpe, houve um erro interno ao cadastrar o time.";
             e.printStackTrace();
             return 0;
         }
+    }
+
+    public static int createOfficialTeams() {
+        try {
+            Connection conexao = ConnectionFactory.obterConexao();
+            
+            // Deleta todos os times cadastrados
+            String sql = "DELETE FROM TB_TIME;";
+            PreparedStatement ps = conexao.prepareStatement(sql);
+            int result = ps.executeUpdate();
+            
+            // Zera as chaves estrangeiras
+            sql = "ALTER TABLE TB_TIME AUTO_INCREMENT = 1;";
+            ps = conexao.prepareStatement(sql);
+            result = ps.executeUpdate();
+            
+            sql = "INSERT INTO TB_TIME (nome, id_grupo) VALUES \n"
+                    + "('QATAR', 1),\n"
+                    + "('EQUADOR', 1),\n"
+                    + "('SENEGAL', 1),\n"
+                    + "('HOLANDA', 1),\n"
+                    + "-- GRUPO A\n"
+                    + "('INGLATERRA', 2),\n"
+                    + "('IRAN', 2),\n"
+                    + "('ESTADOS UNIDOS', 2),\n"
+                    + "('PAÍS DE GALES', 2),\n"
+                    + "-- GRUPO B\n"
+                    + "('ARGENTINA', 3),\n"
+                    + "('ARABIA SAUDITA', 3),\n"
+                    + "('MEXICO', 3),\n"
+                    + "('POLÔNIA', 3),\n"
+                    + "-- GRUPO C\n"
+                    + "('FRANÇA', 4),\n"
+                    + "('AUSTRALIA', 4),\n"
+                    + "('DINAMARCA', 4),\n"
+                    + "('TUNISIA', 4),\n"
+                    + "-- GRUPO D\n"
+                    + "('ESPANHA', 5),\n"
+                    + "('COSTA RICA', 5),\n"
+                    + "('ALEMANHA', 5),\n"
+                    + "('JAPÃO', 5),\n"
+                    + "-- GRUPO E\n"
+                    + "('BELGICA', 6),\n"
+                    + "('CANADA', 6),\n"
+                    + "('MARROCOS', 6),\n"
+                    + "('CROACIA', 6),\n"
+                    + "-- GRUPO F\n"
+                    + "('BRASIL', 7),\n"
+                    + "('SERVIA', 7),\n"
+                    + "('SUIÇA', 7),\n"
+                    + "('CAMARÕES', 7),\n"
+                    + "-- GRUPO G\n"
+                    + "('PORTUGAL', 8),\n"
+                    + "('GANA', 8),\n"
+                    + "('URUGUAI', 8),\n"
+                    + "('COREIA DO SUL', 8);\n"
+                    + "-- GRUPO H";
+
+            ps = conexao.prepareStatement(sql);
+            result = ps.executeUpdate();
+
+            ps.close();
+            conexao.close();
+
+            return result;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    public int isTeamsLimitAchieved(Connection conexao) {
+        try {
+            String sql = "SELECT COUNT(id) count_times FROM TB_TIME";
+            PreparedStatement ps = conexao.prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            int result = rs.getInt("count_times");
+
+            ps.close();
+
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+
     }
 
     public static ArrayList<Time> list() {
@@ -79,8 +175,7 @@ public class TimeDAO {
         return null;
     }
 
-    public static boolean delete(Time time)
-    {
+    public static boolean delete(Time time) {
         try {
             String sql = "DELETE FROM TB_TIME WHERE id = ?";
 
@@ -103,5 +198,12 @@ public class TimeDAO {
             return false;
         }
     }
-    
+
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
+    }
 }

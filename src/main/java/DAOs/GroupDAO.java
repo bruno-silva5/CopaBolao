@@ -44,6 +44,46 @@ public class GroupDAO {
         }
     }
 
+    public static int createOfficialGroups() {
+        try {
+            Connection conexao = ConnectionFactory.obterConexao();
+
+            // Deleta todos os grupos cadastrados
+            String sql = "DELETE FROM TB_GRUPO;";
+            PreparedStatement ps = conexao.prepareStatement(sql);
+            int result = ps.executeUpdate();
+            
+            // Zera as chaves estrangeiras
+            sql = "ALTER TABLE TB_GRUPO AUTO_INCREMENT = 1;";
+            ps = conexao.prepareStatement(sql);
+            result = ps.executeUpdate();
+        
+            sql = "INSERT INTO TB_GRUPO (id, descricao) VALUES\n"
+                    + "(1, 'GRUPO A'),\n"
+                    + "(2, 'GRUPO B'),\n"
+                    + "(3, 'GRUPO C'),\n"
+                    + "(4, 'GRUPO D'),\n"
+                    + "(5, 'GRUPO E'),\n"
+                    + "(6, 'GRUPO F'),\n"
+                    + "(7, 'GRUPO G'),\n"
+                    + "(8, 'GRUPO H');";
+
+            conexao = ConnectionFactory.obterConexao();
+            ps = conexao.prepareStatement(sql);
+
+            result = ps.executeUpdate();
+
+            ps.close();
+            conexao.close();
+
+            return result;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
     public static ArrayList<Group> list() {
 
         ArrayList<Group> lista = new ArrayList<>();
@@ -72,8 +112,7 @@ public class GroupDAO {
         return null;
     }
 
-    public static boolean delete(Group group)
-    {
+    public static boolean delete(Group group) {
         try {
             String sql = "DELETE FROM TB_GRUPO WHERE id = ?";
 
