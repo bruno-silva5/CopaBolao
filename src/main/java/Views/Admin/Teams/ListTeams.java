@@ -289,7 +289,8 @@ public class ListTeams extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_removeTeamActionPerformed
 
     private void btn_dashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_dashboardActionPerformed
-        // TODO add your handling code here:
+        (new Dashboard()).setVisible(true);
+        dispose();
     }//GEN-LAST:event_btn_dashboardActionPerformed
 
     private void btn_usersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_usersActionPerformed

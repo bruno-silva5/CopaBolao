@@ -240,7 +240,8 @@ public class Teams extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_listTeamsActionPerformed
 
     private void btn_dashboard1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_dashboard1ActionPerformed
-        // TODO add your handling code here:
+        (new Dashboard()).setVisible(true);
+        dispose();
     }//GEN-LAST:event_btn_dashboard1ActionPerformed
 
     private void btn_usersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_usersActionPerformed

@@ -23,6 +23,7 @@ import javax.swing.JOptionPane;
 public class CreateTeam extends javax.swing.JFrame {
 
     ArrayList<Group> groups = GroupDAO.list();
+
     /**
      * Creates new form Teams
      */
@@ -44,8 +45,7 @@ public class CreateTeam extends javax.swing.JFrame {
             cb_groups.addItem(groups.get(i).getDescription());
         }
     }
-        
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -298,25 +298,32 @@ public class CreateTeam extends javax.swing.JFrame {
 
     private void btn_storeTeamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_storeTeamActionPerformed
         String teamName = tf_teamName.getText();
-        Time time = new Time(teamName, groups.get(cb_groups.getSelectedIndex()));
 
-        TimeDAO timeDao = new TimeDAO();
-        
-        if (timeDao.create(time) == 0) {
-            JOptionPane.showMessageDialog(null, timeDao.getError());
+        if (teamName != null && !teamName.trim().isEmpty()) {
+            Time time = new Time(teamName, groups.get(cb_groups.getSelectedIndex()));
+
+            TimeDAO timeDao = new TimeDAO();
+
+            if (timeDao.create(time) == 0) {
+                JOptionPane.showMessageDialog(null, timeDao.getError());
+            } else {
+                JOptionPane.showMessageDialog(null, "Time cadastrado com sucesso!");
+                (new ListTeams()).setVisible(true);
+                dispose();
+            }
         } else {
-            JOptionPane.showMessageDialog(null, "Time cadastrado com sucesso!");
-            (new ListTeams()).setVisible(true);
-            dispose();
+            JOptionPane.showMessageDialog(null, "O nome do time não pode estar vazio");
         }
+
     }//GEN-LAST:event_btn_storeTeamActionPerformed
 
     private void cb_groupsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_groupsActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_cb_groupsActionPerformed
 
     private void btn_dashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_dashboardActionPerformed
-        // TODO add your handling code here:
+        (new Dashboard()).setVisible(true);
+        dispose();
     }//GEN-LAST:event_btn_dashboardActionPerformed
 
     private void btn_usersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_usersActionPerformed

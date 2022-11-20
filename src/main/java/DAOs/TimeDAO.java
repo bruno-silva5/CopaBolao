@@ -35,6 +35,7 @@ public class TimeDAO {
             PreparedStatement ps = conexao.prepareStatement(sql);
             ps.setString(1, time.getNome());
 
+            // Verifica se o time pertence a um grupo ou nao
             if (time.getGroup() != null) {
                 ps.setInt(2, time.getGroup().getId());
             } else {
@@ -143,7 +144,6 @@ public class TimeDAO {
             e.printStackTrace();
             return 0;
         }
-
     }
 
     public static ArrayList<Time> list() {

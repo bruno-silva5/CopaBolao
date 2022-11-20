@@ -180,7 +180,7 @@ public class Groups extends javax.swing.JFrame {
         });
 
         btn_storeOfficialGroups.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
-        btn_storeOfficialGroups.setText("Cadastrar grupos oficiais + time");
+        btn_storeOfficialGroups.setText("Cadastrar grupos oficiais + times");
         btn_storeOfficialGroups.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_storeOfficialGroupsActionPerformed(evt);
@@ -263,7 +263,8 @@ public class Groups extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_storeOfficialGroupsActionPerformed
 
     private void btn_dashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_dashboardActionPerformed
-        // TODO add your handling code here:
+        (new Dashboard()).setVisible(true);
+        dispose();
     }//GEN-LAST:event_btn_dashboardActionPerformed
 
     private void btn_usersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_usersActionPerformed

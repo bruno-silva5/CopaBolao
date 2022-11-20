@@ -311,7 +311,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Ubuntu" size="36" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Cadastrar grupos oficiais + time"/>
+                <Property name="text" type="java.lang.String" value="Cadastrar grupos oficiais + times"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_storeOfficialGroupsActionPerformed"/>
