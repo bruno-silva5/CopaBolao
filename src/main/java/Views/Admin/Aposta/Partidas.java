@@ -2,29 +2,25 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package Views.Admin.Groups;
+package Views.Admin.Aposta;
 
-import DAOs.GroupDAO;
-import DAOs.TimeDAO;
-import Models.User;
-import Views.Admin.Teams.Teams;
 import Views.Admin.Dashboard;
 import Views.Admin.Groups.Groups;
-import Views.Admin.Aposta.Partidas;
 import Views.Admin.Simulator;
+import Views.Admin.Teams.Teams;
 import Views.Admin.Users;
-import javax.swing.JOptionPane;
+import Views.Admin.Aposta.Partidas;
 
 /**
  *
- * @author bruno
+ * @author gusta
  */
-public class Groups extends javax.swing.JFrame {
+public class Partidas extends javax.swing.JFrame {
 
     /**
-     * Creates new form Teams
+     * Creates new form Partidas
      */
-    public Groups() {
+    public Partidas() {
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -39,37 +35,87 @@ public class Groups extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jp_btns_times = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        list_Partidas = new javax.swing.JList<>();
+        btn_Apostar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        lbl_logo = new javax.swing.JLabel();
         btn_dashboard = new javax.swing.JButton();
         btn_users = new javax.swing.JButton();
         btn_simulator = new javax.swing.JButton();
         btn_times = new javax.swing.JButton();
         btn_groups = new javax.swing.JButton();
+        lbl_logo = new javax.swing.JLabel();
         btn_Partidas = new javax.swing.JButton();
-        jp_btns_times = new javax.swing.JPanel();
-        btn_createTeam = new javax.swing.JButton();
-        btn_listTeams = new javax.swing.JButton();
-        btn_storeOfficialGroups = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBounds(new java.awt.Rectangle(0, 0, 1280, 720));
-        setMaximizedBounds(new java.awt.Rectangle(0, 0, 1280, 720));
-        setMinimumSize(new java.awt.Dimension(1280, 720));
-        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(245, 245, 245));
         jPanel1.setMaximumSize(new java.awt.Dimension(1280, 720));
-        jPanel1.setMinimumSize(new java.awt.Dimension(1280, 720));
+
+        jp_btns_times.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
+        jLabel1.setText("Lista de Partidas");
+
+        list_Partidas.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
+        list_Partidas.setSelectionBackground(new java.awt.Color(27, 164, 72));
+        list_Partidas.setSelectionForeground(new java.awt.Color(255, 255, 255));
+        jScrollPane1.setViewportView(list_Partidas);
+
+        btn_Apostar.setBackground(new java.awt.Color(27, 164, 72));
+        btn_Apostar.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        btn_Apostar.setForeground(new java.awt.Color(255, 255, 255));
+        btn_Apostar.setText("Apostar");
+        btn_Apostar.setBorderPainted(false);
+        btn_Apostar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_ApostarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jp_btns_timesLayout = new javax.swing.GroupLayout(jp_btns_times);
+        jp_btns_times.setLayout(jp_btns_timesLayout);
+        jp_btns_timesLayout.setHorizontalGroup(
+            jp_btns_timesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jp_btns_timesLayout.createSequentialGroup()
+                .addContainerGap(106, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 575, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btn_Apostar, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(19, 19, 19))
+            .addGroup(jp_btns_timesLayout.createSequentialGroup()
+                .addGap(265, 265, 265)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jp_btns_timesLayout.setVerticalGroup(
+            jp_btns_timesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jp_btns_timesLayout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(jLabel1)
+                .addGap(33, 33, 33)
+                .addGroup(jp_btns_timesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_Apostar))
+                .addContainerGap(29, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jp_btns_times, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jp_btns_times, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setFocusable(false);
-
-        lbl_logo.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
-        lbl_logo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbl_logo.setIcon(new javax.swing.ImageIcon("assets/logo_menor.png"));
-        lbl_logo.setToolTipText("");
-        lbl_logo.setPreferredSize(new java.awt.Dimension(180, 100));
 
         btn_dashboard.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         btn_dashboard.setText("Dashboard");
@@ -117,9 +163,7 @@ public class Groups extends javax.swing.JFrame {
             }
         });
 
-        btn_groups.setBackground(new java.awt.Color(27, 164, 72));
         btn_groups.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        btn_groups.setForeground(new java.awt.Color(255, 255, 255));
         btn_groups.setText("Grupos");
         btn_groups.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245)));
         btn_groups.setFocusable(false);
@@ -130,8 +174,16 @@ public class Groups extends javax.swing.JFrame {
             }
         });
 
+        lbl_logo.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
+        lbl_logo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_logo.setIcon(new javax.swing.ImageIcon("assets/logo_menor.png"));
+        lbl_logo.setToolTipText("");
+        lbl_logo.setPreferredSize(new java.awt.Dimension(180, 100));
+
+        btn_Partidas.setBackground(new java.awt.Color(27, 164, 72));
         btn_Partidas.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        btn_Partidas.setText("Apostas");
+        btn_Partidas.setForeground(new java.awt.Color(255, 255, 255));
+        btn_Partidas.setText("Partidas");
         btn_Partidas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245)));
         btn_Partidas.setFocusable(false);
         btn_Partidas.setOpaque(true);
@@ -148,14 +200,14 @@ public class Groups extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(46, 46, 46)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btn_users, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
-                    .addComponent(btn_dashboard, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
-                    .addComponent(btn_simulator, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
-                    .addComponent(btn_times, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
-                    .addComponent(btn_groups, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
-                    .addComponent(lbl_logo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btn_Partidas, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE))
-                .addContainerGap(52, Short.MAX_VALUE))
+                    .addComponent(btn_users, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_dashboard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_simulator, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_times, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_groups, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lbl_logo, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
+                    .addComponent(btn_Partidas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -174,109 +226,30 @@ public class Groups extends javax.swing.JFrame {
                 .addComponent(btn_groups, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btn_Partidas, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jp_btns_times.setBackground(new java.awt.Color(255, 255, 255));
-
-        btn_createTeam.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
-        btn_createTeam.setText("Criar novo grupo");
-        btn_createTeam.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_createTeamActionPerformed(evt);
-            }
-        });
-
-        btn_listTeams.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
-        btn_listTeams.setText("Ver grupos");
-        btn_listTeams.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_listTeamsActionPerformed(evt);
-            }
-        });
-
-        btn_storeOfficialGroups.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
-        btn_storeOfficialGroups.setText("Cadastrar grupos oficiais + times");
-        btn_storeOfficialGroups.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_storeOfficialGroupsActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jp_btns_timesLayout = new javax.swing.GroupLayout(jp_btns_times);
-        jp_btns_times.setLayout(jp_btns_timesLayout);
-        jp_btns_timesLayout.setHorizontalGroup(
-            jp_btns_timesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jp_btns_timesLayout.createSequentialGroup()
-                .addGap(45, 45, 45)
-                .addGroup(jp_btns_timesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btn_storeOfficialGroups, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jp_btns_timesLayout.createSequentialGroup()
-                        .addComponent(btn_listTeams, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
-                        .addComponent(btn_createTeam, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(43, 43, 43))
-        );
-        jp_btns_timesLayout.setVerticalGroup(
-            jp_btns_timesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jp_btns_timesLayout.createSequentialGroup()
-                .addGap(91, 91, 91)
-                .addGroup(jp_btns_timesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btn_createTeam, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btn_listTeams, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(53, 53, 53)
-                .addComponent(btn_storeOfficialGroups, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(109, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(58, 58, 58)
-                .addComponent(jp_btns_times, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 73, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(jp_btns_times, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addContainerGap(210, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(68, 68, 68)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(61, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(42, 42, 42)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 605, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btn_createTeamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_createTeamActionPerformed
-        (new CreateGroup()).setVisible(true);
-        dispose();
-    }//GEN-LAST:event_btn_createTeamActionPerformed
-
-    private void btn_listTeamsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_listTeamsActionPerformed
-        (new ListGroups()).setVisible(true);
-        dispose();
-    }//GEN-LAST:event_btn_listTeamsActionPerformed
-
-    private void btn_storeOfficialGroupsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_storeOfficialGroupsActionPerformed
-        GroupDAO.createOfficialGroups();
-        TimeDAO.createOfficialTeams();
-        JOptionPane.showMessageDialog(null, "Grupos oficiais e times cadastrados com sucesso!");
-    }//GEN-LAST:event_btn_storeOfficialGroupsActionPerformed
 
     private void btn_dashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_dashboardActionPerformed
         (new Dashboard()).setVisible(true);
@@ -308,6 +281,11 @@ public class Groups extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btn_PartidasActionPerformed
 
+    private void btn_ApostarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ApostarActionPerformed
+        (new Aposta()).setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btn_ApostarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -325,40 +303,38 @@ public class Groups extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Groups.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Partidas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Groups.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Partidas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Groups.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Partidas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Groups.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Partidas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Groups().setVisible(true);
+                new Partidas().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_Apostar;
     private javax.swing.JButton btn_Partidas;
-    private javax.swing.JButton btn_createTeam;
     private javax.swing.JButton btn_dashboard;
     private javax.swing.JButton btn_groups;
-    private javax.swing.JButton btn_listTeams;
     private javax.swing.JButton btn_simulator;
-    private javax.swing.JButton btn_storeOfficialGroups;
     private javax.swing.JButton btn_times;
     private javax.swing.JButton btn_users;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel jp_btns_times;
     private javax.swing.JLabel lbl_logo;
+    private javax.swing.JList<String> list_Partidas;
     // End of variables declaration//GEN-END:variables
 }
