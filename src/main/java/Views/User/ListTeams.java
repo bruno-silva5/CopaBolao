@@ -48,7 +48,6 @@ public class ListTeams extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         lbl_logo = new javax.swing.JLabel();
-        btn_simulator = new javax.swing.JButton();
         btn_times = new javax.swing.JButton();
         btn_groups = new javax.swing.JButton();
         jp_btns_times = new javax.swing.JPanel();
@@ -74,17 +73,6 @@ public class ListTeams extends javax.swing.JFrame {
         lbl_logo.setIcon(new javax.swing.ImageIcon("assets/logo_menor.png"));
         lbl_logo.setToolTipText("");
         lbl_logo.setPreferredSize(new java.awt.Dimension(180, 100));
-
-        btn_simulator.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        btn_simulator.setText("Simulador");
-        btn_simulator.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245)));
-        btn_simulator.setFocusable(false);
-        btn_simulator.setOpaque(true);
-        btn_simulator.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_simulatorActionPerformed(evt);
-            }
-        });
 
         btn_times.setBackground(new java.awt.Color(27, 164, 72));
         btn_times.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
@@ -118,7 +106,6 @@ public class ListTeams extends javax.swing.JFrame {
                 .addContainerGap(64, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbl_logo, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_simulator, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_times, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_groups, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(63, 63, 63))
@@ -128,9 +115,7 @@ public class ListTeams extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addComponent(lbl_logo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(btn_simulator, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(28, 28, 28)
                 .addComponent(btn_times, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btn_groups, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -206,11 +191,6 @@ public class ListTeams extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn_simulatorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_simulatorActionPerformed
-        (new Simulator()).setVisible(true);
-        dispose();
-    }//GEN-LAST:event_btn_simulatorActionPerformed
-
     private void btn_timesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_timesActionPerformed
         (new ListTeams()).setVisible(true);
         dispose();
@@ -261,7 +241,6 @@ public class ListTeams extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_groups;
-    private javax.swing.JButton btn_simulator;
     private javax.swing.JButton btn_times;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
