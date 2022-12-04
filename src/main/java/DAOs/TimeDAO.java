@@ -30,7 +30,7 @@ public class TimeDAO {
                 return 0;
             }
 
-            String sql = "INSERT INTO TB_TIME(nome, id_grupo) VALUES (?, ?)";
+            String sql = "INSERT INTO tb_time(nome, id_grupo) VALUES (?, ?)";
 
             PreparedStatement ps = conexao.prepareStatement(sql);
             ps.setString(1, time.getNome());
@@ -63,16 +63,16 @@ public class TimeDAO {
             Connection conexao = ConnectionFactory.obterConexao();
             
             // Deleta todos os times cadastrados
-            String sql = "DELETE FROM TB_TIME;";
+            String sql = "DELETE FROM tb_time;";
             PreparedStatement ps = conexao.prepareStatement(sql);
             int result = ps.executeUpdate();
             
             // Zera as chaves estrangeiras
-            sql = "ALTER TABLE TB_TIME AUTO_INCREMENT = 1;";
+            sql = "ALTER TABLE tb_time AUTO_INCREMENT = 1;";
             ps = conexao.prepareStatement(sql);
             result = ps.executeUpdate();
             
-            sql = "INSERT INTO TB_TIME (nome, id_grupo) VALUES \n"
+            sql = "INSERT INTO tb_time (nome, id_grupo) VALUES \n"
                     + "('QATAR', 1),\n"
                     + "('EQUADOR', 1),\n"
                     + "('SENEGAL', 1),\n"
@@ -130,7 +130,7 @@ public class TimeDAO {
 
     public int isTeamsLimitAchieved(Connection conexao) {
         try {
-            String sql = "SELECT COUNT(id) count_times FROM TB_TIME";
+            String sql = "SELECT COUNT(id) count_times FROM tb_time";
             PreparedStatement ps = conexao.prepareStatement(sql);
 
             ResultSet rs = ps.executeQuery();
@@ -149,7 +149,7 @@ public class TimeDAO {
     public static ArrayList<Time> list() {
 
         ArrayList<Time> lista = new ArrayList<>();
-        String sql = "SELECT t.*, g.descricao FROM TB_TIME t JOIN TB_GRUPO g ON t.id_grupo = g.id";
+        String sql = "SELECT t.*, g.descricao FROM tb_time t JOIN tb_grupo g ON t.id_grupo = g.id";
 
         try {
             Connection conn = ConnectionFactory.obterConexao();
@@ -177,7 +177,7 @@ public class TimeDAO {
 
     public static boolean delete(Time time) {
         try {
-            String sql = "DELETE FROM TB_TIME WHERE id = ?";
+            String sql = "DELETE FROM tb_time WHERE id = ?";
 
             Connection conexao = (new ConnectionFactory()).obterConexao();
 

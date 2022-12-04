@@ -22,7 +22,7 @@ public class GroupDAO {
 
     public static int create(Group group) {
         try {
-            String sql = "INSERT INTO TB_GRUPO(descricao) VALUES (?)";
+            String sql = "INSERT INTO tb_grupo(descricao) VALUES (?)";
 
             Connection conexao = ConnectionFactory.obterConexao();
 
@@ -49,16 +49,16 @@ public class GroupDAO {
             Connection conexao = ConnectionFactory.obterConexao();
 
             // Deleta todos os grupos cadastrados
-            String sql = "DELETE FROM TB_GRUPO;";
+            String sql = "DELETE FROM tb_grupo;";
             PreparedStatement ps = conexao.prepareStatement(sql);
             int result = ps.executeUpdate();
             
             // Zera as chaves estrangeiras
-            sql = "ALTER TABLE TB_GRUPO AUTO_INCREMENT = 1;";
+            sql = "ALTER TABLE tb_grupo AUTO_INCREMENT = 1;";
             ps = conexao.prepareStatement(sql);
             result = ps.executeUpdate();
         
-            sql = "INSERT INTO TB_GRUPO (id, descricao) VALUES\n"
+            sql = "INSERT INTO tb_grupo (id, descricao) VALUES\n"
                     + "(1, 'GRUPO A'),\n"
                     + "(2, 'GRUPO B'),\n"
                     + "(3, 'GRUPO C'),\n"
@@ -87,7 +87,7 @@ public class GroupDAO {
     public static ArrayList<Group> list() {
 
         ArrayList<Group> lista = new ArrayList<>();
-        String sql = "SELECT * FROM TB_GRUPO";
+        String sql = "SELECT * FROM tb_grupo";
 
         try {
             Connection conn = ConnectionFactory.obterConexao();
@@ -114,7 +114,7 @@ public class GroupDAO {
 
     public static boolean delete(Group group) {
         try {
-            String sql = "DELETE FROM TB_GRUPO WHERE id = ?";
+            String sql = "DELETE FROM tb_grupo WHERE id = ?";
 
             Connection conexao = (new ConnectionFactory()).obterConexao();
 

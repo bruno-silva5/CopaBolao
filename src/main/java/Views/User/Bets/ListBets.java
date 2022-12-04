@@ -2,13 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package Views.User;
+package Views.User.Bets;
 
-import Views.Admin.Teams.*;
+import DAOs.ApostaDAO;
+import Views.User.*;
+import DAOs.GroupDAO;
 import DAOs.TimeDAO;
+import Models.Aposta;
+import Models.Group;
 import Models.Time;
 import Models.User;
-import Views.User.Bets.ListBets;
+import Views.Admin.Groups.CreateGroup;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
@@ -17,29 +22,25 @@ import javax.swing.JList;
  *
  * @author bruno
  */
-public class ListTeams extends javax.swing.JFrame {
+public class ListBets extends javax.swing.JFrame {
 
     private User user;
-    
-    public ListTeams(User user) {
+    DefaultListModel listModel = new DefaultListModel();
+    ArrayList<Aposta> apostas;
+
+    public ListBets(User user) {
         this.user = user;
-        initFrame();   
-    }
-    
-    private void initFrame() {
+        this.apostas = ApostaDAO.list(user.getId());
         initComponents();
         setLocationRelativeTo(null);
-        loadTeamsList();        
+        loadUserBets();
     }
-    
-    private void loadTeamsList() {
-        ArrayList<Time> teams = TimeDAO.list();
-        DefaultListModel listModel = new DefaultListModel();
-        
-        for (int i = 0; i < teams.size(); i++) {
-            listModel.addElement(teams.get(i).getNome() + " - " + teams.get(i).getGrupoDescricao());
+
+    private void loadUserBets() {
+        for (int i = 0; i < apostas.size(); i++) {
+            listModel.addElement("R$ " + String.format("%.2f", apostas.get(i).getValor()) + " apostado no " + apostas.get(i).getNomeTimeApostado() + " - (" + apostas.get(i).getNomesTimesPartida() + ")");
         }
-        list_teams.setModel(listModel);
+        list_user_bets.setModel(listModel);
     }
     
     /**
@@ -60,7 +61,10 @@ public class ListTeams extends javax.swing.JFrame {
         jp_btns_times = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        list_teams = new javax.swing.JList<>();
+        list_user_bets = new javax.swing.JList<>();
+        btn_addGroup3 = new javax.swing.JButton();
+        btn_addGroup4 = new javax.swing.JButton();
+        btn_addGroup5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBounds(new java.awt.Rectangle(0, 0, 1280, 720));
@@ -81,9 +85,7 @@ public class ListTeams extends javax.swing.JFrame {
         lbl_logo.setToolTipText("");
         lbl_logo.setPreferredSize(new java.awt.Dimension(180, 100));
 
-        btn_times.setBackground(new java.awt.Color(27, 164, 72));
         btn_times.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        btn_times.setForeground(new java.awt.Color(255, 255, 255));
         btn_times.setText("Times");
         btn_times.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245)));
         btn_times.setFocusable(false);
@@ -105,7 +107,9 @@ public class ListTeams extends javax.swing.JFrame {
             }
         });
 
+        btn_groups1.setBackground(new java.awt.Color(27, 164, 72));
         btn_groups1.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        btn_groups1.setForeground(new java.awt.Color(255, 255, 255));
         btn_groups1.setText("Minhas Apostas");
         btn_groups1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245)));
         btn_groups1.setFocusable(false);
@@ -134,7 +138,7 @@ public class ListTeams extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addComponent(lbl_logo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
+                .addGap(26, 26, 26)
                 .addComponent(btn_times, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btn_groups, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -146,12 +150,47 @@ public class ListTeams extends javax.swing.JFrame {
         jp_btns_times.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
-        jLabel1.setText("Lista de Times");
+        jLabel1.setText("Minhas Apostas");
 
-        list_teams.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
-        list_teams.setSelectionBackground(new java.awt.Color(27, 164, 72));
-        list_teams.setSelectionForeground(new java.awt.Color(255, 255, 255));
-        jScrollPane1.setViewportView(list_teams);
+        list_user_bets.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
+        list_user_bets.setSelectionBackground(new java.awt.Color(27, 164, 72));
+        list_user_bets.setSelectionForeground(new java.awt.Color(255, 255, 255));
+        list_user_bets.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                list_user_betsMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(list_user_bets);
+
+        btn_addGroup3.setBackground(new java.awt.Color(27, 164, 72));
+        btn_addGroup3.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        btn_addGroup3.setForeground(new java.awt.Color(255, 255, 255));
+        btn_addGroup3.setText("Nova Aposta");
+        btn_addGroup3.setBorderPainted(false);
+        btn_addGroup3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_addGroup3ActionPerformed(evt);
+            }
+        });
+
+        btn_addGroup4.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        btn_addGroup4.setText("Ver Detalhes");
+        btn_addGroup4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_addGroup4ActionPerformed(evt);
+            }
+        });
+
+        btn_addGroup5.setBackground(new java.awt.Color(255, 0, 0));
+        btn_addGroup5.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        btn_addGroup5.setForeground(new java.awt.Color(255, 255, 255));
+        btn_addGroup5.setText("Excluir");
+        btn_addGroup5.setBorderPainted(false);
+        btn_addGroup5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_addGroup5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jp_btns_timesLayout = new javax.swing.GroupLayout(jp_btns_times);
         jp_btns_times.setLayout(jp_btns_timesLayout);
@@ -164,8 +203,13 @@ public class ListTeams extends javax.swing.JFrame {
                         .addComponent(jLabel1))
                     .addGroup(jp_btns_timesLayout.createSequentialGroup()
                         .addGap(45, 45, 45)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 773, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(45, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 656, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
+                        .addGroup(jp_btns_timesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btn_addGroup3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btn_addGroup4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btn_addGroup5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGap(25, 25, 25))
         );
         jp_btns_timesLayout.setVerticalGroup(
             jp_btns_timesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -173,7 +217,14 @@ public class ListTeams extends javax.swing.JFrame {
                 .addGap(40, 40, 40)
                 .addComponent(jLabel1)
                 .addGap(43, 43, 43)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jp_btns_timesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jp_btns_timesLayout.createSequentialGroup()
+                        .addComponent(btn_addGroup3, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_addGroup4, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_addGroup5, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(77, Short.MAX_VALUE))
         );
 
@@ -212,6 +263,10 @@ public class ListTeams extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void list_user_betsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_list_user_betsMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_list_user_betsMouseClicked
+
     private void btn_timesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_timesActionPerformed
         (new ListTeams(this.user)).setVisible(true);
         dispose();
@@ -223,9 +278,27 @@ public class ListTeams extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_groupsActionPerformed
 
     private void btn_groups1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_groups1ActionPerformed
-        (new ListBets(this.user)).setVisible(true);
-        dispose();
+        // TODO add your handling code here:
     }//GEN-LAST:event_btn_groups1ActionPerformed
+
+    private void btn_addGroup3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addGroup3ActionPerformed
+        (new CreateGroup()).setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btn_addGroup3ActionPerformed
+
+    private void btn_addGroup4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addGroup4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_addGroup4ActionPerformed
+
+    private void btn_addGroup5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addGroup5ActionPerformed
+        int index = list_user_bets.getSelectedIndex();
+        Aposta aposta = this.apostas.get(index);
+
+        if (ApostaDAO.delete(aposta)) {
+            listModel.removeElementAt(index);
+            this.apostas.remove(index);
+        }
+    }//GEN-LAST:event_btn_addGroup5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -244,14 +317,74 @@ public class ListTeams extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ListTeams.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListBets.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ListTeams.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListBets.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ListTeams.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListBets.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ListTeams.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListBets.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -260,6 +393,12 @@ public class ListTeams extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_addGroup;
+    private javax.swing.JButton btn_addGroup1;
+    private javax.swing.JButton btn_addGroup2;
+    private javax.swing.JButton btn_addGroup3;
+    private javax.swing.JButton btn_addGroup4;
+    private javax.swing.JButton btn_addGroup5;
     private javax.swing.JButton btn_groups;
     private javax.swing.JButton btn_groups1;
     private javax.swing.JButton btn_times;
@@ -269,6 +408,6 @@ public class ListTeams extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel jp_btns_times;
     private javax.swing.JLabel lbl_logo;
-    private javax.swing.JList<String> list_teams;
+    private javax.swing.JList<String> list_user_bets;
     // End of variables declaration//GEN-END:variables
 }

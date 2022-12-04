@@ -15,8 +15,6 @@ import javax.swing.JOptionPane;
  * @author bruno
  */
 public class Login extends javax.swing.JFrame {
-
-    
     
     public Login() {
         initComponents();
@@ -185,7 +183,7 @@ public class Login extends javax.swing.JFrame {
             if (user.getId_nivelAcesso() == 1) {
                 (new Dashboard()).setVisible(true);
             } else {
-                (new ListTeams()).setVisible(true);
+                (new ListTeams(user)).setVisible(true);
             }
             
             dispose();

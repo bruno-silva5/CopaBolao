@@ -8,6 +8,8 @@ import DAOs.GroupDAO;
 import DAOs.TimeDAO;
 import Models.Group;
 import Models.Time;
+import Models.User;
+import Views.User.Bets.ListBets;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
@@ -18,12 +20,14 @@ import javax.swing.JList;
  */
 public class ListGroups extends javax.swing.JFrame {
 
+    private User user;
     DefaultListModel listModel = new DefaultListModel();
     
     /**
      * Creates new form Groups
      */
-    public ListGroups() {
+    public ListGroups(User user) {
+        this.user = user;
         initComponents();
         setLocationRelativeTo(null);
         loadGroupsList();
@@ -52,6 +56,7 @@ public class ListGroups extends javax.swing.JFrame {
         lbl_logo = new javax.swing.JLabel();
         btn_times = new javax.swing.JButton();
         btn_groups = new javax.swing.JButton();
+        btn_groups1 = new javax.swing.JButton();
         jp_btns_times = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -100,6 +105,17 @@ public class ListGroups extends javax.swing.JFrame {
             }
         });
 
+        btn_groups1.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        btn_groups1.setText("Minhas Apostas");
+        btn_groups1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245)));
+        btn_groups1.setFocusable(false);
+        btn_groups1.setOpaque(true);
+        btn_groups1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_groups1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -107,6 +123,7 @@ public class ListGroups extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(64, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btn_groups1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbl_logo, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_times, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_groups, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -121,6 +138,8 @@ public class ListGroups extends javax.swing.JFrame {
                 .addComponent(btn_times, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btn_groups, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btn_groups1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -203,14 +222,19 @@ public class ListGroups extends javax.swing.JFrame {
     }//GEN-LAST:event_list_groupsMouseClicked
 
     private void btn_timesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_timesActionPerformed
-        (new ListTeams()).setVisible(true);
+        (new ListTeams(this.user)).setVisible(true);
         dispose();
     }//GEN-LAST:event_btn_timesActionPerformed
 
     private void btn_groupsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_groupsActionPerformed
-        (new ListGroups()).setVisible(true);
+        (new ListGroups(this.user)).setVisible(true);
         dispose();
     }//GEN-LAST:event_btn_groupsActionPerformed
+
+    private void btn_groups1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_groups1ActionPerformed
+        (new ListBets(this.user)).setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btn_groups1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -254,16 +278,11 @@ public class ListGroups extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ListGroups().setVisible(true);
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_groups;
+    private javax.swing.JButton btn_groups1;
     private javax.swing.JButton btn_times;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;

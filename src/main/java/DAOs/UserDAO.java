@@ -18,7 +18,7 @@ public class UserDAO {
 
     public static User auth(User user) {
         try {
-            String sql = "SELECT * FROM TB_USER where email like ? and senha like ?";
+            String sql = "SELECT * FROM tb_user where email like ? and senha like ?";
 
             Connection conexao = ConnectionFactory.obterConexao();
 
@@ -36,6 +36,7 @@ public class UserDAO {
                     double saldo = rs.getDouble("saldo");
                     int nivelAcesso = rs.getInt("id_nivelAcesso");
 
+                    user.setId(id);
                     user.setId_nivelAcesso(nivelAcesso);
                     user.setSaldo(saldo);
                     user.setNome(nome);
