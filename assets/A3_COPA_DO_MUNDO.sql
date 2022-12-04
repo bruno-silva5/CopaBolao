@@ -50,6 +50,7 @@ CREATE TABLE TB_FASE(
  id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
  descricao varchar(30)
 );
+ALTER TABLE TB_PARTIDA ADD COLUMN id_fase integer;
 
 /* Fim Criação das Tabelas */
 
@@ -61,6 +62,7 @@ ALTER TABLE `tb_time` ADD CONSTRAINT `FK_Grupo_Do_Time` FOREIGN KEY ( `id_grupo`
 
 ALTER TABLE `tb_partida` ADD CONSTRAINT `FK_Time1` FOREIGN KEY ( `id_time1` ) REFERENCES `tb_time` ( `id` ) ;
 ALTER TABLE `tb_partida` ADD CONSTRAINT `FK_Time2` FOREIGN KEY ( `id_time2` ) REFERENCES `tb_time` ( `id` ) ;
+ALTER TABLE `TB_PARTIDA` ADD CONSTRAINT `FK_Fase` FOREIGN KEY ( `id_fase` ) REFERENCES `TB_FASE` ( `id` ) ;
 
 ALTER TABLE `tb_aposta` ADD CONSTRAINT `FK_User_Aposta` FOREIGN KEY ( `id_usuario` ) REFERENCES `tb_user` ( `id` ) ;
 ALTER TABLE `tb_aposta` ADD CONSTRAINT `FK_Aposta` FOREIGN KEY ( `id_partida` ) REFERENCES `tb_partida` ( `id` ) ;
