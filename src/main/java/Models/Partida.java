@@ -5,6 +5,7 @@
 package Models;
 
 import java.sql.Date;
+import java.util.ArrayList;
 
 /**
  *
@@ -15,8 +16,7 @@ public class Partida {
     int id, id_time1,id_time2,id_fase,qtd_gols_time1 ,qtd_gols_time2;
     Date dataDaPartida;
     Fase fase;
-    Time time1;
-    Time time2;
+    ArrayList<Time> times;
     String faseDescricao;
 
     public Partida(int id,int id_time1,int id_time2, Date dataDaPartida,int id_fase, String faseDescricao,int qtd_gols_time1,int qtd_gols_time2) {
@@ -30,12 +30,11 @@ public class Partida {
         this.qtd_gols_time2 = qtd_gols_time2;
     }
     
-    public Partida(int id, Date dataDaPartida, Time time1,Time time2,int qtd_gols_time1,int qtd_gols_time2,int id_fase) {
+    public Partida(int id, Date dataDaPartida, ArrayList<Time> times,int qtd_gols_time1,int qtd_gols_time2,int id_fase) {
         
         this.id = id;
         this.dataDaPartida = dataDaPartida;
-        this.time1 = time1;
-        this.time2 = time2;
+        this.times = times;
         this.qtd_gols_time1 = qtd_gols_time1;
         this.qtd_gols_time2 = qtd_gols_time2;
         this.id_fase = id_fase;
@@ -58,21 +57,24 @@ public class Partida {
     }
 
     public Time getTime1() {
-        return time1;
+        //tratamento para não tentar dar um get e dar erro de null reference
+        if (times!=null && times.isEmpty())
+            return times.get(0);
+        else       
+            return null;
     }
 
-    public void setTime1(Time time1) {
-        this.time1 = time1;
+    public void setTime(ArrayList<Time> times) {
+        this.times = times;
     }
     
     public Time getTime2() {
-        return time2;
+        if (times!=null && !times.isEmpty())
+            return times.get(1);
+        else       
+            return null;
     }
 
-    public void setTime2(Time time2) {
-        this.time2 = time2;
-    }
-    
     
     public int getQtdGolsTimes1() {
         return qtd_gols_time1;
