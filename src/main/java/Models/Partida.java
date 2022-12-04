@@ -4,7 +4,7 @@
  */
 package Models;
 
-import java.util.Date;
+import java.sql.Date;
 
 /**
  *
@@ -19,16 +19,18 @@ public class Partida {
     Time time2;
     String faseDescricao;
 
-    public Partida(int id,int id_time1,int id_time2, Date dataDaPartida,int id_fase, String faseDescricao) {
+    public Partida(int id,int id_time1,int id_time2, Date dataDaPartida,int id_fase, String faseDescricao,int qtd_gols_time1,int qtd_gols_time2) {
         this.id = id;
         this.id_time1 = id_time1;
         this.id_time2 = id_time2;
         this.dataDaPartida = dataDaPartida;
         this.id_fase = id_fase;
         this.faseDescricao = faseDescricao;
+        this.qtd_gols_time1 = qtd_gols_time1;
+        this.qtd_gols_time2 = qtd_gols_time2;
     }
     
-    public Partida(int id, Date dataDaPartida, Time time1,Time time2,int qtd_gols_time1,int qtd_gols_time2) {
+    public Partida(int id, Date dataDaPartida, Time time1,Time time2,int qtd_gols_time1,int qtd_gols_time2,int id_fase) {
         
         this.id = id;
         this.dataDaPartida = dataDaPartida;
@@ -36,6 +38,7 @@ public class Partida {
         this.time2 = time2;
         this.qtd_gols_time1 = qtd_gols_time1;
         this.qtd_gols_time2 = qtd_gols_time2;
+        this.id_fase = id_fase;
     }
     
     public String getFaseDescricao() {
