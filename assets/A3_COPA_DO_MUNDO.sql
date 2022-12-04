@@ -128,5 +128,11 @@ INSERT INTO tb_partida (id_time1, id_time2, qtd_gols_time1, qtd_gols_time2, dt_p
 INSERT INTO tb_partida (id_time1, id_time2, qtd_gols_time1, qtd_gols_time2, dt_partida) VALUES
 (31,32,1,2,DATE("2022-11-20"));
 
+INSERT INTO tb_user (nome, senha, email, saldo, id_nivelAcesso) VALUES
+("admin",123,"admin@live.com",0,1);
+INSERT INTO tb_user (nome, senha, email, saldo, id_nivelAcesso) VALUES
+("user",123,"user@live.com",0,2);
+
+
 /* Fim Criação das Procs */
 
