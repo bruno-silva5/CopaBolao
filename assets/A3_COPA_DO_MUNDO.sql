@@ -45,6 +45,12 @@ CREATE TABLE tb_aposta(
  id_partida integer,
  id_time integer
 );
+
+CREATE TABLE TB_FASE(
+ id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+ descricao varchar(30)
+);
+
 /* Fim Criação das Tabelas */
 
 /* Inicio da adição das chaves estrangeiras */
