@@ -11,6 +11,7 @@ import Models.Group;
 import Models.Time;
 import Views.Admin.Dashboard;
 import Views.Admin.Groups.Groups;
+import Views.Admin.Matches.ListMatches;
 import Views.Admin.Simulator;
 import Views.Admin.Users;
 import java.util.ArrayList;
@@ -60,6 +61,7 @@ public class ListGroups extends javax.swing.JFrame {
         btn_simulator = new javax.swing.JButton();
         btn_times = new javax.swing.JButton();
         btn_groups = new javax.swing.JButton();
+        btn_groups1 = new javax.swing.JButton();
         jp_btns_times = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -145,6 +147,17 @@ public class ListGroups extends javax.swing.JFrame {
             }
         });
 
+        btn_groups1.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        btn_groups1.setText("Partidas");
+        btn_groups1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245)));
+        btn_groups1.setFocusable(false);
+        btn_groups1.setOpaque(true);
+        btn_groups1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_groups1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -157,7 +170,8 @@ public class ListGroups extends javax.swing.JFrame {
                     .addComponent(btn_simulator, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
                     .addComponent(btn_times, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
                     .addComponent(btn_groups, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
-                    .addComponent(lbl_logo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lbl_logo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_groups1, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE))
                 .addContainerGap(52, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -175,7 +189,9 @@ public class ListGroups extends javax.swing.JFrame {
                 .addComponent(btn_times, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btn_groups, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(277, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btn_groups1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jp_btns_times.setBackground(new java.awt.Color(255, 255, 255));
@@ -258,7 +274,7 @@ public class ListGroups extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addComponent(jp_btns_times, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -316,6 +332,11 @@ public class ListGroups extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btn_groupsActionPerformed
 
+    private void btn_groups1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_groups1ActionPerformed
+        (new ListMatches()).setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btn_groups1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -362,6 +383,7 @@ public class ListGroups extends javax.swing.JFrame {
     private javax.swing.JButton btn_addGroup;
     private javax.swing.JButton btn_dashboard;
     private javax.swing.JButton btn_groups;
+    private javax.swing.JButton btn_groups1;
     private javax.swing.JButton btn_removeGroup;
     private javax.swing.JButton btn_simulator;
     private javax.swing.JButton btn_times;
