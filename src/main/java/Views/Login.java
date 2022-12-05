@@ -8,6 +8,8 @@ import Views.Admin.Dashboard;
 import DAOs.UserDAO;
 import Models.User;
 import Views.User.ListTeams;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import javax.swing.JOptionPane;
 
 /**
@@ -15,9 +17,38 @@ import javax.swing.JOptionPane;
  * @author bruno
  */
 public class Login extends javax.swing.JFrame {
-    
+
     public Login() {
         initComponents();
+        tf_email.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {}
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    login();
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {}
+        });
+        pf_password.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {}
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    login();
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {}
+
+        });
         setLocationRelativeTo(null);
     }
 
@@ -160,7 +191,7 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_submitActionPerformed
-        
+
     }//GEN-LAST:event_btn_submitActionPerformed
 
     private void pf_passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pf_passwordActionPerformed
@@ -178,14 +209,14 @@ public class Login extends javax.swing.JFrame {
         User user = new User(username, password);
 
         user = UserDAO.auth(user);
-        
+
         if (user.isAuthenticated()) {
             if (user.getId_nivelAcesso() == 1) {
                 (new Dashboard()).setVisible(true);
             } else {
                 (new ListTeams(user)).setVisible(true);
             }
-            
+
             dispose();
         } else {
             JOptionPane.showMessageDialog(null, "Usuario/Senha inválido(s)");
@@ -203,4 +234,5 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPasswordField pf_password;
     private javax.swing.JTextField tf_email;
     // End of variables declaration//GEN-END:variables
+
 }

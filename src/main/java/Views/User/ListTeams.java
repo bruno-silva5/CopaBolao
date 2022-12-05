@@ -9,6 +9,7 @@ import DAOs.TimeDAO;
 import Models.Time;
 import Models.User;
 import Views.User.Bets.ListBets;
+import Views.User.Matches.ListMatches;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
@@ -57,6 +58,7 @@ public class ListTeams extends javax.swing.JFrame {
         btn_times = new javax.swing.JButton();
         btn_groups = new javax.swing.JButton();
         btn_groups1 = new javax.swing.JButton();
+        btn_groups4 = new javax.swing.JButton();
         jp_btns_times = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -116,6 +118,17 @@ public class ListTeams extends javax.swing.JFrame {
             }
         });
 
+        btn_groups4.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        btn_groups4.setText("Partidas");
+        btn_groups4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245)));
+        btn_groups4.setFocusable(false);
+        btn_groups4.setOpaque(true);
+        btn_groups4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_groups4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -128,6 +141,11 @@ public class ListTeams extends javax.swing.JFrame {
                     .addComponent(btn_times, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_groups, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(63, 63, 63))
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGap(63, 63, 63)
+                    .addComponent(btn_groups4, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(64, Short.MAX_VALUE)))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -141,6 +159,11 @@ public class ListTeams extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(btn_groups1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGap(338, 338, 338)
+                    .addComponent(btn_groups4, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(339, Short.MAX_VALUE)))
         );
 
         jp_btns_times.setBackground(new java.awt.Color(255, 255, 255));
@@ -227,6 +250,11 @@ public class ListTeams extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btn_groups1ActionPerformed
 
+    private void btn_groups4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_groups4ActionPerformed
+        (new ListMatches(user)).setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btn_groups4ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -262,6 +290,7 @@ public class ListTeams extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_groups;
     private javax.swing.JButton btn_groups1;
+    private javax.swing.JButton btn_groups4;
     private javax.swing.JButton btn_times;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
