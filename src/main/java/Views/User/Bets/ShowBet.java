@@ -8,6 +8,7 @@ import DAOs.ApostaDAO;
 import Views.User.*;
 import DAOs.GroupDAO;
 import DAOs.TimeDAO;
+import DAOs.UserDAO;
 import Models.Aposta;
 import Models.Group;
 import Models.Partida;
@@ -15,7 +16,9 @@ import Models.Time;
 import Models.User;
 import Views.Admin.Groups.CreateGroup;
 import Views.User.Matches.ListMatches;
+import java.awt.Color;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
@@ -37,9 +40,17 @@ public class ShowBet extends javax.swing.JFrame {
         this.apostas = ApostaDAO.list(user.getId());
         initComponents();
         
+        double saldo = UserDAO.consultaSaldo(user);
+        lbl_availableBalance.setText("R$ "+ String.format("%.2f", saldo));
+        
         lbl_betAmount.setText("R$ " + String.format("%.2f", aposta.getValor()));
         lbl_betTeam.setText(aposta.getNomeTimeApostado());
         lbl_match.setText(aposta.getNomesTimesPartida());
+        SimpleDateFormat simpleDate = new SimpleDateFormat("dd/MM/yyyy");
+        lbl_matchDate.setText(simpleDate.format(aposta.getDt_partida()));
+        String matchStatus = aposta.getFinished() == 1 ? "Finalizada" : "Pendente";
+        lbl_betStatus.setText(matchStatus);
+        lbl_betStatus.setForeground(aposta.getFinished() == 1 ? Color.GREEN : Color.ORANGE);
    
         setLocationRelativeTo(null);
     }
@@ -60,6 +71,8 @@ public class ShowBet extends javax.swing.JFrame {
         btn_groups = new javax.swing.JButton();
         btn_groups1 = new javax.swing.JButton();
         btn_groups4 = new javax.swing.JButton();
+        lbl_availableBalance = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
         jp_btns_times = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -67,7 +80,11 @@ public class ShowBet extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         lbl_betAmount = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        lbl_betStatus = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
         lbl_match = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        lbl_matchDate = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBounds(new java.awt.Rectangle(0, 0, 1280, 720));
@@ -134,6 +151,15 @@ public class ShowBet extends javax.swing.JFrame {
             }
         });
 
+        lbl_availableBalance.setFont(new java.awt.Font("Ubuntu", 0, 36)); // NOI18N
+        lbl_availableBalance.setText("R$ 200,00");
+        lbl_availableBalance.setMaximumSize(new java.awt.Dimension(250, 42));
+        lbl_availableBalance.setMinimumSize(new java.awt.Dimension(250, 42));
+        lbl_availableBalance.setPreferredSize(new java.awt.Dimension(250, 42));
+
+        jLabel11.setFont(new java.awt.Font("Ubuntu", 1, 17)); // NOI18N
+        jLabel11.setText("Saldo disponível");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -141,11 +167,13 @@ public class ShowBet extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(64, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbl_availableBalance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11)
                     .addComponent(btn_groups1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbl_logo, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_times, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_groups, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(63, 63, 63))
+                .addGap(21, 21, 21))
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
                     .addGap(63, 63, 63)
@@ -163,7 +191,11 @@ public class ShowBet extends javax.swing.JFrame {
                 .addComponent(btn_groups, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btn_groups1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(396, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lbl_availableBalance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(67, 67, 67))
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
                     .addGap(338, 338, 338)
@@ -195,10 +227,26 @@ public class ShowBet extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Ubuntu", 0, 36)); // NOI18N
         jLabel4.setText("Time Apostado: ");
 
+        lbl_betStatus.setFont(new java.awt.Font("Ubuntu", 0, 36)); // NOI18N
+        lbl_betStatus.setMaximumSize(new java.awt.Dimension(400, 42));
+        lbl_betStatus.setMinimumSize(new java.awt.Dimension(400, 42));
+        lbl_betStatus.setPreferredSize(new java.awt.Dimension(400, 42));
+
+        jLabel5.setFont(new java.awt.Font("Ubuntu", 0, 36)); // NOI18N
+        jLabel5.setText("Data da Partida:");
+
         lbl_match.setFont(new java.awt.Font("Ubuntu", 0, 36)); // NOI18N
         lbl_match.setMaximumSize(new java.awt.Dimension(400, 42));
         lbl_match.setMinimumSize(new java.awt.Dimension(400, 42));
         lbl_match.setPreferredSize(new java.awt.Dimension(400, 42));
+
+        jLabel6.setFont(new java.awt.Font("Ubuntu", 0, 36)); // NOI18N
+        jLabel6.setText("Status:");
+
+        lbl_matchDate.setFont(new java.awt.Font("Ubuntu", 0, 36)); // NOI18N
+        lbl_matchDate.setMaximumSize(new java.awt.Dimension(400, 42));
+        lbl_matchDate.setMinimumSize(new java.awt.Dimension(400, 42));
+        lbl_matchDate.setPreferredSize(new java.awt.Dimension(400, 42));
 
         javax.swing.GroupLayout jp_btns_timesLayout = new javax.swing.GroupLayout(jp_btns_times);
         jp_btns_times.setLayout(jp_btns_timesLayout);
@@ -210,21 +258,27 @@ public class ShowBet extends javax.swing.JFrame {
                         .addGap(86, 86, 86)
                         .addGroup(jp_btns_timesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jp_btns_timesLayout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(161, 161, 161)
-                                .addComponent(lbl_match, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jp_btns_timesLayout.createSequentialGroup()
                                 .addGroup(jp_btns_timesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
-                                    .addComponent(jLabel4))
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel3))
                                 .addGap(37, 37, 37)
                                 .addGroup(jp_btns_timesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lbl_betTeam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lbl_betAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(lbl_betAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbl_match, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jp_btns_timesLayout.createSequentialGroup()
+                                .addGroup(jp_btns_timesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel6))
+                                .addGap(37, 37, 37)
+                                .addGroup(jp_btns_timesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lbl_betStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbl_matchDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(jp_btns_timesLayout.createSequentialGroup()
                         .addGap(260, 260, 260)
                         .addComponent(jLabel1)))
-                .addContainerGap(82, Short.MAX_VALUE))
+                .addContainerGap(72, Short.MAX_VALUE))
         );
         jp_btns_timesLayout.setVerticalGroup(
             jp_btns_timesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -242,10 +296,20 @@ public class ShowBet extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lbl_betTeam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(39, 39, 39)
-                .addGroup(jp_btns_timesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jp_btns_timesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(lbl_match, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(270, Short.MAX_VALUE))
+                .addGap(35, 35, 35)
+                .addGroup(jp_btns_timesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(jp_btns_timesLayout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addGap(34, 34, 34)
+                        .addComponent(jLabel6))
+                    .addGroup(jp_btns_timesLayout.createSequentialGroup()
+                        .addComponent(lbl_matchDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lbl_betStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(117, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -264,7 +328,7 @@ public class ShowBet extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addComponent(jp_btns_times, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -462,20 +526,24 @@ public class ShowBet extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_groups;
     private javax.swing.JButton btn_groups1;
-    private javax.swing.JButton btn_groups2;
-    private javax.swing.JButton btn_groups3;
     private javax.swing.JButton btn_groups4;
     private javax.swing.JButton btn_times;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jp_btns_times;
+    private javax.swing.JLabel lbl_availableBalance;
     private javax.swing.JLabel lbl_betAmount;
+    private javax.swing.JLabel lbl_betStatus;
     private javax.swing.JLabel lbl_betTeam;
     private javax.swing.JLabel lbl_logo;
     private javax.swing.JLabel lbl_match;
+    private javax.swing.JLabel lbl_matchDate;
     // End of variables declaration//GEN-END:variables
 }

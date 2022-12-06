@@ -48,7 +48,7 @@ public class TimeDAO {
             // 6 Fechar a conexao
             ps.close();
             conexao.close();
-            System.out.println(result);
+            System.out.println("Time foi criado? " + result);
             return result;
 
         } catch (Exception e) {

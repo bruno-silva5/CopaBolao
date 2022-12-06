@@ -10,6 +10,7 @@ import Views.User.*;
 import DAOs.GroupDAO;
 import DAOs.PartidaDAO;
 import DAOs.TimeDAO;
+import DAOs.UserDAO;
 import Models.Aposta;
 import Models.Group;
 import Models.Partida;
@@ -37,6 +38,8 @@ public class ListMatches extends javax.swing.JFrame {
         this.user = user;
         this.partidas = PartidaDAO.list();
         initComponents();
+        double saldo = UserDAO.consultaSaldo(user);
+        lbl_availableBalance.setText("R$ "+ String.format("%.2f", saldo));
         setLocationRelativeTo(null);
         loadMatches();
     }
@@ -44,7 +47,8 @@ public class ListMatches extends javax.swing.JFrame {
     private void loadMatches() {
         for (int i = 0; i < partidas.size(); i++) {
             SimpleDateFormat simpleDate = new SimpleDateFormat("dd/MM/yyyy");
-            listModel.addElement(partidas.get(i).getNomeTime1()+ " X " + partidas.get(i).getNomeTime2()+ " em " + simpleDate.format(partidas.get(i).getDt_partida()));
+            String status = partidas.get(i).getFinished() == 1 ? "Finalizada" : "Pendente";
+            listModel.addElement(partidas.get(i).getNomeTime1()+ " X " + partidas.get(i).getNomeTime2()+ " em " + simpleDate.format(partidas.get(i).getDt_partida()) + " " + status);
         }
         list_matches.setModel(listModel);
     }
@@ -65,6 +69,8 @@ public class ListMatches extends javax.swing.JFrame {
         btn_groups = new javax.swing.JButton();
         btn_groups1 = new javax.swing.JButton();
         btn_groups2 = new javax.swing.JButton();
+        lbl_availableBalance = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
         jp_btns_times = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -136,6 +142,15 @@ public class ListMatches extends javax.swing.JFrame {
             }
         });
 
+        lbl_availableBalance.setFont(new java.awt.Font("Ubuntu", 0, 36)); // NOI18N
+        lbl_availableBalance.setText("R$ 200,00");
+        lbl_availableBalance.setMaximumSize(new java.awt.Dimension(250, 42));
+        lbl_availableBalance.setMinimumSize(new java.awt.Dimension(250, 42));
+        lbl_availableBalance.setPreferredSize(new java.awt.Dimension(250, 42));
+
+        jLabel11.setFont(new java.awt.Font("Ubuntu", 1, 17)); // NOI18N
+        jLabel11.setText("Saldo disponível");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -143,12 +158,14 @@ public class ListMatches extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(64, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbl_availableBalance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11)
                     .addComponent(btn_groups2, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_groups1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbl_logo, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_times, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_groups, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(63, 63, 63))
+                .addGap(21, 21, 21))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -163,7 +180,11 @@ public class ListMatches extends javax.swing.JFrame {
                 .addComponent(btn_groups1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btn_groups2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lbl_availableBalance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(67, 67, 67))
         );
 
         jp_btns_times.setBackground(new java.awt.Color(255, 255, 255));
@@ -197,23 +218,22 @@ public class ListMatches extends javax.swing.JFrame {
         jp_btns_timesLayout.setHorizontalGroup(
             jp_btns_timesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jp_btns_timesLayout.createSequentialGroup()
-                .addGroup(jp_btns_timesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jp_btns_timesLayout.createSequentialGroup()
-                        .addGap(295, 295, 295)
-                        .addComponent(jLabel1))
-                    .addGroup(jp_btns_timesLayout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 656, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
-                        .addComponent(btn_createBet, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)))
+                .addGap(45, 45, 45)
+                .addComponent(jScrollPane1)
+                .addGap(18, 18, 18)
+                .addComponent(btn_createBet)
                 .addGap(25, 25, 25))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp_btns_timesLayout.createSequentialGroup()
+                .addContainerGap(380, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(368, 368, 368))
         );
         jp_btns_timesLayout.setVerticalGroup(
             jp_btns_timesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jp_btns_timesLayout.createSequentialGroup()
-                .addGap(40, 40, 40)
+                .addGap(37, 37, 37)
                 .addComponent(jLabel1)
-                .addGap(43, 43, 43)
+                .addGap(46, 46, 46)
                 .addGroup(jp_btns_timesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_createBet, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -228,7 +248,7 @@ public class ListMatches extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(58, 58, 58)
                 .addComponent(jp_btns_times, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 39, Short.MAX_VALUE))
+                .addGap(0, 47, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -276,6 +296,8 @@ public class ListMatches extends javax.swing.JFrame {
 
     private void btn_createBetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_createBetActionPerformed
         int index = list_matches.getSelectedIndex();
+        if (index == -1) return;
+
         Partida partida = this.partidas.get(index);
         (new ShowMatch(user, partida)).setVisible(true);
         dispose();
@@ -577,10 +599,12 @@ public class ListMatches extends javax.swing.JFrame {
     private javax.swing.JButton btn_groups2;
     private javax.swing.JButton btn_times;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel jp_btns_times;
+    private javax.swing.JLabel lbl_availableBalance;
     private javax.swing.JLabel lbl_logo;
     private javax.swing.JList<String> list_matches;
     // End of variables declaration//GEN-END:variables

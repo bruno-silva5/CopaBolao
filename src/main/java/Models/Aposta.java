@@ -4,15 +4,43 @@
  */
 package Models;
 
+import java.sql.Date;
+
 /**
  *
  * @author bruno
  */
 public class Aposta {
-    int id, id_usuario, id_time, id_partida;
+    int id, id_usuario, id_time, id_partida, finished;
     double valor;
+    String nomeUsuario;
     String nomeTimeApostado;
     String nomesTimesPartida;
+    Date dt_partida;
+
+    public String getNomeUsuario() {
+        return nomeUsuario;
+    }
+
+    public void setNomeUsuario(String nomeUsuario) {
+        this.nomeUsuario = nomeUsuario;
+    }
+    
+    public int getFinished() {
+        return finished;
+    }
+
+    public void setFinished(int finished) {
+        this.finished = finished;
+    }
+
+    public Date getDt_partida() {
+        return dt_partida;
+    }
+
+    public void setDt_partida(Date dt_partida) {
+        this.dt_partida = dt_partida;
+    }
 
     public String getNomeTimeApostado() {
         return nomeTimeApostado;
@@ -31,11 +59,13 @@ public class Aposta {
     }
 
     // Usado para listagem, onde define todos os dados
-    public Aposta(int id, int id_usuario, int id_time, int id_partida, double valor, String nomeTimeApostado, String nomesTimesPartida) {
+    public Aposta(int id, int id_usuario, int id_time, int id_partida, Date dt_partida, int finished, double valor, String nomeTimeApostado, String nomesTimesPartida) {
         this.id = id;
         this.id_usuario = id_usuario;
         this.id_time = id_time;
         this.id_partida = id_partida;
+        this.dt_partida = dt_partida;
+        this.finished = finished;
         this.valor = valor;
         this.nomeTimeApostado = nomeTimeApostado;
         this.nomesTimesPartida = nomesTimesPartida;
@@ -46,6 +76,13 @@ public class Aposta {
         this.id_usuario = id_usuario;
         this.id_time = id_time;
         this.id_partida = id_partida;
+        this.valor = valor;
+    }
+    
+    // Usado na listagem de apostas de uma partida
+    public Aposta(int id_usuario, String nomeUsuario, double valor) {
+        this.id_usuario = id_usuario;
+        this.nomeUsuario = nomeUsuario;
         this.valor = valor;
     }
     

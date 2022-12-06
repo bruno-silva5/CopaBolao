@@ -12,13 +12,13 @@ import java.sql.Date;
  */
 public class Partida {
 
-    private int id, id_time1, id_time2, qtd_gols_time1, qtd_gols_time2, id_fase;
+    private int id, id_time1, id_time2, qtd_gols_time1, qtd_gols_time2, id_fase, finished;
+
     private Date dt_partida;
     String nomeTime1;
     String nomeTime2;
 
-
-    public Partida(int id, int id_time1, int id_time2, int qtd_gols_time1, int qtd_gols_time2, int id_fase, Date dt_partida, String nomeTime1, String nomeTime2) {
+    public Partida(int id, int id_time1, int id_time2, int qtd_gols_time1, int qtd_gols_time2, int id_fase, Date dt_partida, int finished, String nomeTime1, String nomeTime2) {
         this.id = id;
         this.id_time1 = id_time1;
         this.id_time2 = id_time2;
@@ -26,8 +26,17 @@ public class Partida {
         this.qtd_gols_time2 = qtd_gols_time2;
         this.id_fase = id_fase;
         this.dt_partida = dt_partida;
+        this.finished = finished;
         this.nomeTime1 = nomeTime1;
         this.nomeTime2 = nomeTime2;
+    }
+
+    public int getFinished() {
+        return finished;
+    }
+
+    public void setFinished(int finished) {
+        this.finished = finished;
     }
 
     public String getNomeTime1() {

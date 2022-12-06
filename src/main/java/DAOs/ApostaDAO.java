@@ -7,7 +7,9 @@ package DAOs;
 import Models.Time;
 import CopaBolao.ConnectionFactory;
 import Models.Aposta;
+import Models.Partida;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -40,21 +42,24 @@ public class ApostaDAO {
             // 6 Fechar a conexao
             ps.close();
             conexao.close();
-            System.out.println(result);
+            System.out.println("Aposta foi criada? " + result);
             return result;
 
         } catch (Exception e) {
-            error = "Desculpe, houve um erro interno ao cadastrar o time.";
+            error = "Desculpe, houve um erro interno ao criar a aposta";
             e.printStackTrace();
             return 0;
         }
     }
 
-    // Disponivel somente para o ADM, listar TODAS apostas
-    public static ArrayList<Time> list() {
-
+    public static int countPendingBets() {
         ArrayList<Time> lista = new ArrayList<>();
-        String sql = "SELECT t.*FROM tb_time";
+        String sql = "SELECT \n"
+                + "	COUNT(tb_aposta.id) count_apostas \n"
+                + "FROM tb_aposta\n"
+                + "	JOIN tb_partida ON\n"
+                + "		tb_aposta.id_partida = tb_partida.id\n"
+                + "WHERE tb_partida.finished = 0";
 
         try {
             Connection conn = ConnectionFactory.obterConexao();
@@ -62,21 +67,52 @@ public class ApostaDAO {
             ResultSet rs = ps.executeQuery();
 
             rs.beforeFirst();
+            rs.next();
+            return rs.getInt("count_apostas");
+
+        } catch (Exception ex) {
+            Logger.getLogger(ApostaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+
+    // Disponivel somente para o ADM, listar TODAS apostas
+    public static ArrayList<Aposta> listBetsByTeam(Partida partida, int id_time) {
+        ArrayList<Aposta> lista = new ArrayList<>();
+
+        String sql = "SELECT \n"
+                + "	A.id_usuario, \n"
+                + "	A.valor, \n"
+                + "     U.nome nome_usuario \n"
+                + "FROM tb_aposta A\n"
+                + "	join tb_user U on\n"
+                + "		U.id = A.id_usuario\n"
+                + "WHERE A.id_partida = ?\n"
+                + "AND A.id_time = ?; \n";
+
+        try {
+            Connection conn = ConnectionFactory.obterConexao();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, partida.getId());
+            ps.setInt(2, id_time);
+            ResultSet rs = ps.executeQuery();
+
+            rs.beforeFirst();
             int contador = 0;
 
             while (rs.next()) {
-                int id = rs.getInt("id");
-                int id_grupo = rs.getInt("id_grupo");
-                String nome = rs.getString("nome");
-                String grupoDescricao = rs.getString("descricao");
-                Time time = new Time(id, id_grupo, nome, grupoDescricao);
-                lista.add(time);
+                double valor = rs.getDouble("valor");
+                int idUsuario = rs.getInt("id_usuario");
+                String nomeUsuario = rs.getString("nome_usuario");
+
+                Aposta aposta = new Aposta(idUsuario, nomeUsuario, valor);
+                lista.add(aposta);
             }
+    
             return lista;
         } catch (Exception ex) {
             Logger.getLogger(ApostaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         return null;
     }
 
@@ -92,6 +128,8 @@ public class ApostaDAO {
                 + "	A.valor, \n"
                 + "    T.nome nome_time_apostado, \n"
                 + "    P.id id_partida,\n"
+                + "    P.dt_partida,\n"
+                + "    P.finished,\n"
                 + "    T1.nome time1,\n"
                 + "    T2.nome time2\n"
                 + "FROM tb_aposta A\n"
@@ -116,17 +154,18 @@ public class ApostaDAO {
             int contador = 0;
 
             while (rs.next()) {
-                
                 int id = rs.getInt("id");
                 double valor = rs.getDouble("valor");
                 int id_usuario = rs.getInt("id_usuario");
                 int id_partida = rs.getInt("id_partida");
+                Date dt_partida = rs.getDate("dt_partida");
+                int finished = rs.getInt("finished");
                 int id_time = rs.getInt("id_time");
                 String nomeTimeApostado = rs.getString("nome_time_apostado");
                 String time1 = rs.getString("time1");
                 String time2 = rs.getString("time2");
-                
-                Aposta aposta = new Aposta(id, id_usuario, id_time, id_partida, valor, nomeTimeApostado, (time1 + " X " + time2));
+
+                Aposta aposta = new Aposta(id, id_usuario, id_time, id_partida, dt_partida, finished, valor, nomeTimeApostado, (time1 + " X " + time2));
                 lista.add(aposta);
             }
             return lista;

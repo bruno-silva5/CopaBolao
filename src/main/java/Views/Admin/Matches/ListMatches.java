@@ -35,8 +35,9 @@ public class ListMatches extends javax.swing.JFrame {
 
     private void loadMatches() {
         for (int i = 0; i < partidas.size(); i++) {
-            SimpleDateFormat simpleDate = new SimpleDateFormat("dd/MM/yyyy");
-            listModel.addElement(partidas.get(i).getNomeTime1()+ " X " + partidas.get(i).getNomeTime2()+ " em " + simpleDate.format(partidas.get(i).getDt_partida()));
+            SimpleDateFormat simpleDate = new SimpleDateFormat("dd/MM");
+            String status = partidas.get(i).getFinished() == 1 ? "Finalizada" : "Pendente";
+            listModel.addElement(partidas.get(i).getNomeTime1()+ " X " + partidas.get(i).getNomeTime2()+ " em " + simpleDate.format(partidas.get(i).getDt_partida()) + " - " + status);
         }
         list_matches.setModel(listModel);
     }
@@ -53,7 +54,6 @@ public class ListMatches extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         btn_dashboard = new javax.swing.JButton();
-        btn_users = new javax.swing.JButton();
         btn_simulator = new javax.swing.JButton();
         btn_times = new javax.swing.JButton();
         btn_groups = new javax.swing.JButton();
@@ -63,8 +63,8 @@ public class ListMatches extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         list_matches = new javax.swing.JList<>();
-        btn_createMatch = new javax.swing.JButton();
-        btn_createMatch1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Dashboard");
@@ -87,17 +87,6 @@ public class ListMatches extends javax.swing.JFrame {
         btn_dashboard.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_dashboardActionPerformed(evt);
-            }
-        });
-
-        btn_users.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        btn_users.setText("Usuários");
-        btn_users.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245)));
-        btn_users.setFocusable(false);
-        btn_users.setOpaque(true);
-        btn_users.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_usersActionPerformed(evt);
             }
         });
 
@@ -160,13 +149,12 @@ public class ListMatches extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(46, 46, 46)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btn_users, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
-                    .addComponent(btn_dashboard, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
-                    .addComponent(btn_simulator, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
-                    .addComponent(btn_times, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
-                    .addComponent(btn_groups, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
-                    .addComponent(lbl_logo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btn_groups1, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE))
+                    .addComponent(btn_dashboard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_simulator, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_times, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_groups, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lbl_logo, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
+                    .addComponent(btn_groups1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(52, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -177,8 +165,6 @@ public class ListMatches extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addComponent(btn_dashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btn_users, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addComponent(btn_simulator, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btn_times, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -186,7 +172,7 @@ public class ListMatches extends javax.swing.JFrame {
                 .addComponent(btn_groups, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btn_groups1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(211, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jp_btns_times.setBackground(new java.awt.Color(255, 255, 255));
@@ -204,25 +190,22 @@ public class ListMatches extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(list_matches);
 
-        btn_createMatch.setBackground(new java.awt.Color(27, 164, 72));
-        btn_createMatch.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        btn_createMatch.setForeground(new java.awt.Color(255, 255, 255));
-        btn_createMatch.setText("Criar Partida");
-        btn_createMatch.setBorderPainted(false);
-        btn_createMatch.addActionListener(new java.awt.event.ActionListener() {
+        jButton2.setBackground(new java.awt.Color(27, 164, 72));
+        jButton2.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("Definir Placar");
+        jButton2.setBorderPainted(false);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_createMatchActionPerformed(evt);
+                jButton2ActionPerformed(evt);
             }
         });
 
-        btn_createMatch1.setBackground(new java.awt.Color(255, 51, 51));
-        btn_createMatch1.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        btn_createMatch1.setForeground(new java.awt.Color(255, 255, 255));
-        btn_createMatch1.setText("Excluir");
-        btn_createMatch1.setBorderPainted(false);
-        btn_createMatch1.addActionListener(new java.awt.event.ActionListener() {
+        jButton3.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        jButton3.setText("Ver Apostas");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_createMatch1ActionPerformed(evt);
+                jButton3ActionPerformed(evt);
             }
         });
 
@@ -231,31 +214,30 @@ public class ListMatches extends javax.swing.JFrame {
         jp_btns_timesLayout.setHorizontalGroup(
             jp_btns_timesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jp_btns_timesLayout.createSequentialGroup()
+                .addGap(45, 45, 45)
+                .addComponent(jScrollPane1)
+                .addGap(18, 18, 18)
                 .addGroup(jp_btns_timesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jp_btns_timesLayout.createSequentialGroup()
-                        .addGap(295, 295, 295)
-                        .addComponent(jLabel1))
-                    .addGroup(jp_btns_timesLayout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 656, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
-                        .addGroup(jp_btns_timesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btn_createMatch, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
-                            .addComponent(btn_createMatch1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGap(25, 25, 25))
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp_btns_timesLayout.createSequentialGroup()
+                .addContainerGap(389, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(367, 367, 367))
         );
         jp_btns_timesLayout.setVerticalGroup(
             jp_btns_timesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jp_btns_timesLayout.createSequentialGroup()
-                .addGap(40, 40, 40)
+                .addGap(26, 26, 26)
                 .addComponent(jLabel1)
-                .addGap(43, 43, 43)
+                .addGap(57, 57, 57)
                 .addGroup(jp_btns_timesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jp_btns_timesLayout.createSequentialGroup()
-                        .addComponent(btn_createMatch, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btn_createMatch1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(77, Short.MAX_VALUE))
         );
 
@@ -265,26 +247,24 @@ public class ListMatches extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addComponent(jp_btns_times, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29))
+                .addGap(37, 37, 37))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
+                .addGap(26, 26, 26)
                 .addComponent(jp_btns_times, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -300,11 +280,6 @@ public class ListMatches extends javax.swing.JFrame {
         (new Dashboard()).setVisible(true);
         dispose();
     }//GEN-LAST:event_btn_dashboardActionPerformed
-
-    private void btn_usersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_usersActionPerformed
-        (new Users()).setVisible(true);
-        dispose();
-    }//GEN-LAST:event_btn_usersActionPerformed
 
     private void btn_simulatorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_simulatorActionPerformed
         (new Simulator()).setVisible(true);
@@ -330,13 +305,27 @@ public class ListMatches extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_list_matchesMouseClicked
 
-    private void btn_createMatchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_createMatchActionPerformed
-        //    
-    }//GEN-LAST:event_btn_createMatchActionPerformed
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        int index = list_matches.getSelectedIndex();
+        
+        if (index == -1) return;
+        
+        Partida partida = this.partidas.get(index);
+    
+        (new SetMatchResult(partida)).setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void btn_createMatch1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_createMatch1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_createMatch1ActionPerformed
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        int index = list_matches.getSelectedIndex();
+        
+        if (index == -1) return;
+        
+        Partida partida = this.partidas.get(index);
+        
+        (new ShowMatchBets(partida)).setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -375,34 +364,19 @@ public class ListMatches extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_createMatch;
-    private javax.swing.JButton btn_createMatch1;
     private javax.swing.JButton btn_dashboard;
     private javax.swing.JButton btn_groups;
     private javax.swing.JButton btn_groups1;
-    private javax.swing.JButton btn_groups2;
-    private javax.swing.JButton btn_groups3;
-    private javax.swing.JButton btn_groups4;
-    private javax.swing.JButton btn_groups5;
-    private javax.swing.JButton btn_groups6;
-    private javax.swing.JButton btn_groups7;
     private javax.swing.JButton btn_simulator;
     private javax.swing.JButton btn_times;
-    private javax.swing.JButton btn_times1;
-    private javax.swing.JButton btn_times2;
-    private javax.swing.JButton btn_users;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel jp_btns_times;
     private javax.swing.JLabel lbl_logo;
-    private javax.swing.JLabel lbl_logo1;
-    private javax.swing.JLabel lbl_logo2;
     private javax.swing.JList<String> list_matches;
     // End of variables declaration//GEN-END:variables
 }

@@ -13,7 +13,6 @@ import Views.Admin.Dashboard;
 import Views.Admin.Groups.Groups;
 import Views.Admin.Matches.ListMatches;
 import Views.Admin.Simulator;
-import Views.Admin.Users;
 import javax.swing.JOptionPane;
 
 /**
@@ -43,7 +42,6 @@ public class CreateGroup extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         lbl_logo = new javax.swing.JLabel();
         btn_dashboard = new javax.swing.JButton();
-        btn_users = new javax.swing.JButton();
         btn_simulator = new javax.swing.JButton();
         btn_times = new javax.swing.JButton();
         btn_groups = new javax.swing.JButton();
@@ -83,17 +81,6 @@ public class CreateGroup extends javax.swing.JFrame {
         btn_dashboard.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_dashboardActionPerformed(evt);
-            }
-        });
-
-        btn_users.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        btn_users.setText("Usuários");
-        btn_users.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245)));
-        btn_users.setFocusable(false);
-        btn_users.setOpaque(true);
-        btn_users.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_usersActionPerformed(evt);
             }
         });
 
@@ -150,7 +137,6 @@ public class CreateGroup extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(46, 46, 46)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btn_users, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
                     .addComponent(btn_dashboard, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
                     .addComponent(btn_simulator, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
                     .addComponent(btn_times, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
@@ -166,8 +152,6 @@ public class CreateGroup extends javax.swing.JFrame {
                 .addComponent(lbl_logo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
                 .addComponent(btn_dashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btn_users, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btn_simulator, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -288,11 +272,6 @@ public class CreateGroup extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btn_dashboardActionPerformed
 
-    private void btn_usersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_usersActionPerformed
-        (new Users()).setVisible(true);
-        dispose();
-    }//GEN-LAST:event_btn_usersActionPerformed
-
     private void btn_simulatorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_simulatorActionPerformed
         (new Simulator()).setVisible(true);
         dispose();
@@ -362,7 +341,6 @@ public class CreateGroup extends javax.swing.JFrame {
     private javax.swing.JButton btn_storeGroup;
     private javax.swing.JButton btn_times;
     private javax.swing.JButton btn_times1;
-    private javax.swing.JButton btn_users;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
